@@ -1,0 +1,24 @@
+{
+  "name": "@jsw/react-modal-manager-hook",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "@types/react-dom": "^19.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.14",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^1.0.0"
+  }
+}

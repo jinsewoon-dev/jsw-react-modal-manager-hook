@@ -1,0 +1,13 @@
+{
+  "name": "react-modal-manager-hook",
+  "private": true,
+  "workspaces": [
+    "package",
+    "example"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w example",
+    "build": "npm run build -w package",
+    "test": "npm run test -w package"
+  }
+}
