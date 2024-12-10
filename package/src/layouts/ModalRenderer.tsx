@@ -1,13 +1,24 @@
 import React, { Fragment } from "react";
-import { useModal } from "../hooks/useModal";
+import { useStore } from "../context/ModalProvider";
+import { ModalManager } from "../types";
 
 export const ModalRenderer = () => {
-  const { modals } = useModal();
+  const modals: ModalManager["modals"] = useStore<ModalManager>(
+    (state) => state.modals
+  );
+  //랜덤 아이디
+
+  const generateUniqueId = () => {
+    return crypto.randomUUID();
+  };
 
   return modals.map((modal, index) => (
-    <Fragment key={index}>
+    <Fragment key={generateUniqueId()}>
       {React.cloneElement(modal.content as React.ReactElement, {
-        modalIndex: index,
+        state: {
+          id: generateUniqueId(),
+          index,
+        },
       })}
     </Fragment>
   ));

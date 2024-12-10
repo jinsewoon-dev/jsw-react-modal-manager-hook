@@ -17,6 +17,11 @@ export class Store<T> {
     this.state = updater(this.state);
     this.notify();
   };
+  //기존 상태와 병합가능함
+  updateState = (updater: (prevState: T) => T) => {
+    this.state = { ...this.state, ...updater(this.state) }; // 상태 불변성 보장
+    this.notify();
+  };
 
   // 구독 추가
   subscribe = (listener: Listener<T>) => {

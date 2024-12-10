@@ -1,6 +1,8 @@
 import "./App.css";
 import { useModal } from "@jsw/react-modal-manager-hook";
-import Modal from "./components/Modal";
+
+import CustomModal from "./components/CustomModal";
+import CustomDialog from "./components/CustomDialog";
 function App() {
   const { modals, openModal } = useModal();
   console.log(modals);
@@ -12,9 +14,14 @@ function App() {
           type="button"
           onClick={() =>
             openModal(
-              <Modal>
+              <CustomModal>
                 <Test />
-              </Modal>
+              </CustomModal>,
+              {
+                canDimClickCLose: false,
+                hasDim: false,
+                scrollable: false,
+              }
             )
           }
         >
@@ -34,15 +41,15 @@ const Test = () => {
       <button
         onClick={() => {
           openModal(
-            <Modal>
-              <div style={{ backgroundColor: "teal" }}>
+            <CustomDialog>
+              <div>
                 <div>Dialog</div>
                 <button onClick={closeAllModal}>닫기</button>
               </div>
-            </Modal>,
+            </CustomDialog>,
             {
-              hasDim: false,
-              // canDimClickCLose: true,
+              scrollable: true,
+              canDimClickCLose: true,
             }
           );
         }}

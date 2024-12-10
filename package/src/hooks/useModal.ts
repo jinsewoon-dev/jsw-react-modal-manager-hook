@@ -1,6 +1,7 @@
 import React, { useSyncExternalStore } from "react";
 import { TModalState } from "../types";
 import { modalStore } from "../stores";
+import { initialModalConfig } from "../lib/constant";
 // useModal 훅
 export const useModal = () => {
   // 상태 구독
@@ -16,14 +17,23 @@ export const useModal = () => {
     config?: TModalState["config"]
   ) => {
     const modalIndex = modalStore.getState().modals.length;
+    console.log({ modalIndex, config, initialModalConfig });
+
     const modal: TModalState = {
-      content: React.cloneElement(content as React.ReactElement, {
-        modalIndex,
-      }),
-      config: config ?? {
-        canDimClickCLose: true,
-        hasDim: true,
-        scrollable: false,
+      content,
+      config: {
+        hasDim:
+          config?.hasDim === undefined
+            ? initialModalConfig.hasDim
+            : config?.hasDim,
+        canDimClickCLose:
+          config?.canDimClickCLose == undefined
+            ? initialModalConfig.canDimClickCLose
+            : config?.canDimClickCLose,
+        scrollable:
+          config?.scrollable === undefined
+            ? initialModalConfig.scrollable
+            : config?.scrollable,
       },
     };
     modalStore.getState().addModal(modal);

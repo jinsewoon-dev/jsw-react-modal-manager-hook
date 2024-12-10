@@ -15,3 +15,19 @@ export interface ModalManager {
   removeModal: () => void;
   removeAllModal: () => void;
 }
+
+export type TModalLayoutState = {
+  id: string;
+  index: number;
+};
+
+export interface ModalayoutProps {
+  children?: React.ReactNode;
+  state?: TModalLayoutState;
+  config?: {
+    baseZindex: number;
+    customDimColor?: React.CSSProperties["backgroundColor"];
+    className?: string;
+    initialStyle?: React.CSSProperties;
+  } & Required<TModalConfig>;
+}
