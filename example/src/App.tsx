@@ -1,44 +1,55 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { useModal } from "@jsw/react-modal-manager-hook";
+import Modal from "./components/Modal";
 function App() {
-  const [count, setCount] = useState(0);
-  const { state, setState, string, setString } = useModal();
+  const { modals, openModal } = useModal();
+  console.log(modals);
 
   return (
     <>
       <div>
-        {state}
-        <button onClick={() => setState((prev: number) => prev + 1)}>
-          라이브러리 테스트 버튼
+        <button
+          type="button"
+          onClick={() =>
+            openModal(
+              <Modal>
+                <Test />
+              </Modal>
+            )
+          }
+        >
+          Modal
         </button>
-        {string}
-        <button onClick={() => setString(String(new Date()))}>
-          라이브러리 테스트 버튼
-        </button>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
 
 export default App;
+
+const Test = () => {
+  const { openModal, closeModal, closeAllModal } = useModal();
+  return (
+    <div style={{ backgroundColor: "#fff" }}>
+      <button
+        onClick={() => {
+          openModal(
+            <Modal>
+              <div style={{ backgroundColor: "teal" }}>
+                <div>Dialog</div>
+                <button onClick={closeAllModal}>닫기</button>
+              </div>
+            </Modal>,
+            {
+              hasDim: false,
+              // canDimClickCLose: true,
+            }
+          );
+        }}
+      >
+        Test Open
+      </button>
+      <button onClick={closeModal}>닫기</button>
+    </div>
+  );
+};
