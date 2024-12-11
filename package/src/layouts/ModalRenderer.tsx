@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import { useStore } from "../context/ModalProvider";
 import { ModalManager } from "../model";
 import { generateUniqueId } from "../lib/generateUniqueId";
+import { useStore } from "../hooks/useStore";
 
 export const ModalRenderer = () => {
   const modals: ModalManager["modals"] = useStore<ModalManager>(

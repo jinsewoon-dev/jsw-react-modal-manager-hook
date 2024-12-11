@@ -11,7 +11,7 @@ const CustomModal = ({ children }: CustomModalProps) => {
         baseZindex: 10000,
         scrollable: true,
         canDimClickCLose: true,
-        hasDim: false,
+        hasDim: true,
       }}
     >
       {children}
