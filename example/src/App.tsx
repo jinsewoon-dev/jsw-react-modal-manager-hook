@@ -19,7 +19,6 @@ function App() {
               </CustomModal>,
               {
                 canDimClickCLose: false,
-                hasDim: false,
                 scrollable: false,
               }
             )

@@ -7,7 +7,7 @@ export const initialModalConfig = {
   hasDim: true,
   scrollable: false,
 };
-export const initialConfigValue: ModalayoutProps["config"] = {
+export const initialConfigValue: Required<ModalayoutProps["defaultConfig"]> = {
   baseZindex: 10000,
   customDimColor: "rgba(0,0,0,0.5)",
   className: "",

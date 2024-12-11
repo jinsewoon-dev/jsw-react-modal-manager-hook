@@ -15,4 +15,5 @@ export type {
   TModalConfig,
   TModalLayoutState,
   ModalayoutProps,
+  TModalDefaultConfig,
 } from "./model/index";

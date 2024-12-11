@@ -6,11 +6,11 @@ interface CustomDialogProps {
 const CustomDialog = ({ children }: CustomDialogProps) => {
   return (
     <Modalayout
-      config={{
+      defaultConfig={{
         baseZindex: 20000,
         scrollable: false,
         canDimClickCLose: false,
-        hasDim: false,
+        hasDim: true,
       }}
     >
       {children}

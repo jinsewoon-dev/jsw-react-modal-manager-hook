@@ -1,20 +1,28 @@
 /**
- * 주어진 값이 정의되어 있으면 해당 값을 반환하고, 그렇지 않으면 기본값을 반환합니다.
+ * 주어진 값(`value`)이 정의되어 있으면 해당 값을 반환하고,
+ * 그렇지 않으면 기본값(`defaultValue`)을 반환합니다.
  *
- * @template T - 값과 기본값의 타입.
- * @param {T | undefined} value - 확인하거나 가져올 값. 만약 `undefined`라면 기본값을 반환합니다.
- * @param {T} defaultValue - 값이 `undefined`일 경우 반환할 기본값.
- * @returns {T} 제공된 값이 정의되어 있으면 해당 값, 아니면 기본값.
+ * @template T - 반환값의 타입.
+ * @param {object} params - 함수에 전달되는 매개변수 객체.
+ * @param {T} params.defaultValue - `value`가 정의되지 않았을 경우 반환할 기본값.
+ * @param {T | undefined} params.value - 확인할 값. `undefined`인 경우 기본값이 반환됩니다.
+ * @returns {T} 주어진 값(`value`)이 정의되어 있으면 해당 값, 아니면 기본값(`defaultValue`).
  *
  * @example
- * // 정의된 값을 사용하는 경우
- * const result1 = getOrDefault("안녕하세요", "기본값");
- * console.log(result1); // 출력: "안녕하세요"
+ * // 기본값 사용
+ * const result1 = getOrDefault({ defaultValue: true, value: undefined });
+ * console.log(result1); // 출력: true
  *
- * // 값이 undefined인 경우
- * const result2 = getOrDefault(undefined, "기본값");
- * console.log(result2); // 출력: "기본값"
+ * // 주어진 값 사용
+ * const result2 = getOrDefault({ defaultValue: true, value: false });
+ * console.log(result2); // 출력: false
  */
-export const getOrDefault = <T>(value: T | undefined, defaltValue: T) => {
-  return value !== undefined ? value : defaltValue;
+export const getOrDefault = <T>({
+  defaultValue,
+  value,
+}: {
+  defaultValue: T;
+  value: T | undefined;
+}): T => {
+  return value !== undefined ? value : defaultValue;
 };

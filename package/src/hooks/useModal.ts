@@ -21,19 +21,11 @@ export const useModal = () => {
 
     const modal: TModalState = {
       content,
+
       config: {
-        hasDim:
-          config?.hasDim === undefined
-            ? initialModalConfig.hasDim
-            : config?.hasDim,
-        canDimClickCLose:
-          config?.canDimClickCLose == undefined
-            ? initialModalConfig.canDimClickCLose
-            : config?.canDimClickCLose,
-        scrollable:
-          config?.scrollable === undefined
-            ? initialModalConfig.scrollable
-            : config?.scrollable,
+        canDimClickCLose: config?.hasDim ?? undefined,
+        scrollable: config?.hasDim ?? undefined,
+        hasDim: config?.hasDim ?? undefined,
       },
     };
     modalStore.getState().addModal(modal);
