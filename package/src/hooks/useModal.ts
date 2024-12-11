@@ -1,7 +1,7 @@
-import React, { useSyncExternalStore } from "react";
-import { TModalState } from "../model";
+import { useSyncExternalStore } from "react";
+import { TModalState, TModalObject } from "../model";
 import { modalStore } from "../store/modalStore";
-import { initialModalConfig } from "../config/initialConfigs";
+import { generateUniqueId } from "../lib/generateUniqueId";
 // useModal 훅
 export const useModal = () => {
   // 상태 구독
@@ -13,19 +13,19 @@ export const useModal = () => {
 
   // 상태 조작 메서드
   const openModal = (
-    content: TModalState["content"],
-    config?: TModalState["config"]
+    content: TModalObject["content"],
+    config?: TModalObject["config"]
   ) => {
-    const modalIndex = modalStore.getState().modals.length;
-    console.log({ modalIndex, config, initialModalConfig });
-
-    const modal: TModalState = {
+    const modal: TModalObject = {
       content,
-
       config: {
-        canDimClickCLose: config?.hasDim ?? undefined,
-        scrollable: config?.hasDim ?? undefined,
+        canDimClickClose: config?.canDimClickClose ?? undefined,
+        scrollable: config?.scrollable ?? undefined,
         hasDim: config?.hasDim ?? undefined,
+      },
+      state: {
+        id: generateUniqueId(),
+        index: modalStore.getState().modals.length,
       },
     };
     modalStore.getState().addModal(modal);

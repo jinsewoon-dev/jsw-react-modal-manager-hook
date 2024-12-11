@@ -11,8 +11,8 @@ export const Modalayout = ({
 }: ModalayoutProps) => {
   const { modals, closeModal } = useModal();
   const currentModal = modals[state.index];
-  // backgroundColor 로직
 
+  // backgroundColor 로직
   const backgroundColor = (() => {
     const hasDimDevalutValue = getOrDefault({
       defaultValue: initialConfigValue.hasDim,
@@ -44,18 +44,17 @@ export const Modalayout = ({
     }
 
     if (hasDim) {
-      // `hasDim`이 true일 경우
       return getOrDefault({
         defaultValue: initialConfigValue.customDimColor,
         value: defaultConfig.customDimColor,
       });
     }
-    return "transparent"; // 그 외는 "transparent"
+    return "transparent";
   })();
   return (
     <div
       onClick={() =>
-        currentModal.config?.canDimClickCLose ?? defaultConfig.canDimClickCLose
+        currentModal.config?.canDimClickClose ?? defaultConfig.canDimClickClose
           ? closeModal()
           : null
       }

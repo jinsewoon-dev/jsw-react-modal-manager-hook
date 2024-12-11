@@ -9,7 +9,7 @@ const CustomDialog = ({ children }: CustomDialogProps) => {
       defaultConfig={{
         baseZindex: 20000,
         scrollable: false,
-        canDimClickCLose: false,
+        canDimClickClose: false,
         hasDim: true,
       }}
     >

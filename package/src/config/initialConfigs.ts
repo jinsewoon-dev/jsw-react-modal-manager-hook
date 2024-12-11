@@ -3,7 +3,7 @@ import { ModalayoutProps } from "../model";
 export const initialState: ModalayoutProps["state"] = { id: "uuid", index: 0 };
 
 export const initialModalConfig = {
-  canDimClickCLose: true,
+  canDimClickClose: true,
   hasDim: true,
   scrollable: false,
 };

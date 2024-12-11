@@ -1,17 +1,23 @@
 export type TModalConfig = {
   hasDim?: boolean;
-  canDimClickCLose?: boolean;
+  canDimClickClose?: boolean;
   scrollable?: boolean;
 };
 
+export type TModalObject = {
+  content: React.ReactNode;
+  config?: TModalConfig;
+  state: TModalLayoutState;
+};
+/**삭제예정 */
 export type TModalState = {
   content: React.ReactNode;
   config?: TModalConfig;
 };
 
 export interface ModalManager {
-  modals: TModalState[];
-  addModal: (modal: TModalState) => void;
+  modals: TModalObject[];
+  addModal: (modal: TModalObject) => void;
   removeModal: () => void;
   removeAllModal: () => void;
 }

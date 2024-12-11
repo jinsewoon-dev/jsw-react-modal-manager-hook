@@ -18,8 +18,9 @@ function App() {
                 <Test />
               </CustomModal>,
               {
-                canDimClickCLose: false,
+                canDimClickClose: false,
                 scrollable: false,
+                hasDim: true,
               }
             )
           }
@@ -48,7 +49,7 @@ const Test = () => {
             </CustomDialog>,
             {
               scrollable: true,
-              canDimClickCLose: true,
+              canDimClickClose: true,
             }
           );
         }}
