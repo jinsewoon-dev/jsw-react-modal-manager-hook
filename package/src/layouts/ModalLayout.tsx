@@ -1,6 +1,6 @@
 import { useModal } from "../hooks/useModal";
-import { initialConfigValue, initialState } from "../lib/constant";
-import { ModalayoutProps } from "../types";
+import { initialConfigValue, initialState } from "../config/initialConfigs";
+import { ModalayoutProps } from "../model";
 
 export const Modalayout = ({
   children,

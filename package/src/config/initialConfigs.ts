@@ -1,4 +1,4 @@
-import { ModalayoutProps } from "../types";
+import { ModalayoutProps } from "../model";
 
 export const initialState: ModalayoutProps["state"] = { id: "uuid", index: 0 };
 

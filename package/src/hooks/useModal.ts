@@ -1,7 +1,7 @@
 import React, { useSyncExternalStore } from "react";
-import { TModalState } from "../types";
-import { modalStore } from "../stores";
-import { initialModalConfig } from "../lib/constant";
+import { TModalState } from "../model";
+import { modalStore } from "../store/modalStore";
+import { initialModalConfig } from "../config/initialConfigs";
 // useModal 훅
 export const useModal = () => {
   // 상태 구독

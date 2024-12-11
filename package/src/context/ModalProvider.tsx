@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useSyncExternalStore } from "react";
 import { ModalRenderer } from "../layouts/ModalRenderer";
-import { Store } from "../model/store";
-import { modalStore } from "../stores";
+import { Store } from "../store";
+import { modalStore } from "../store/modalStore";
 
 // React Context 생성
 const ModalContext = createContext<Store<any> | null>(null);

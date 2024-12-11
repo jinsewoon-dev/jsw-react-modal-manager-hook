@@ -1,16 +1,12 @@
 import React, { Fragment } from "react";
 import { useStore } from "../context/ModalProvider";
-import { ModalManager } from "../types";
+import { ModalManager } from "../model";
+import { generateUniqueId } from "../lib/generateUniqueId";
 
 export const ModalRenderer = () => {
   const modals: ModalManager["modals"] = useStore<ModalManager>(
     (state) => state.modals
   );
-  //랜덤 아이디
-
-  const generateUniqueId = () => {
-    return crypto.randomUUID();
-  };
 
   return modals.map((modal, index) => (
     <Fragment key={generateUniqueId()}>

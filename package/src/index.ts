@@ -1,4 +1,4 @@
-export { modalStore } from "./stores";
+export { modalStore } from "./store/modalStore";
 export { Modalayout } from "./layouts/ModalLayout";
 export { ModalRenderer } from "./layouts/ModalRenderer";
 export { ModalProvider } from "./context/ModalProvider";
@@ -8,11 +8,11 @@ export {
   initialModalConfig,
   initialState,
   initialConfigValue,
-} from "./lib/constant";
+} from "./config/initialConfigs";
 export type {
   ModalManager,
   TModalState,
   TModalConfig,
   TModalLayoutState,
   ModalayoutProps,
-} from "./types/index";
+} from "./model/index";
