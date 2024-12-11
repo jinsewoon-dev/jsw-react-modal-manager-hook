@@ -36,14 +36,6 @@ export const Modalayout = ({
 
         ...(config.initialStyle ?? initialConfigValue!.initialStyle),
       }}
-      data-custom-dim-color={
-        config.customDimColor ?? initialConfigValue!.customDimColor
-      }
-      data-has-dim={
-        config.hasDim === undefined
-          ? currentModal.config?.hasDim ?? initialConfigValue?.hasDim
-          : config.hasDim
-      }
       data-scrollable={
         config.scrollable === undefined
           ? currentModal.config?.scrollable ?? initialConfigValue?.scrollable
