@@ -1,6 +1,6 @@
 // Store 생성
 import { createStore } from ".";
-import { ModalManager, TModalState, TModalObject } from "../model";
+import { ModalManager, TModalObject } from "../model";
 
 export const modalStore = createStore<ModalManager>({
   modals: [],
@@ -10,22 +10,54 @@ export const modalStore = createStore<ModalManager>({
       modals: [...prev.modals, modal], // modals 배열에 새 모달 추가
     }));
   },
-  // addModal(modal: TModalState) {
+  // removeModal() {
   //   modalStore.setState((prev) => ({
   //     ...prev,
-  //     modals: [...prev.modals, modal], // modals 배열에 새 모달 추가
+  //     modals: prev.modals.slice(0, -1), // 마지막 모달 제거
+  //   }));
+  // },
+  // removeAllModal() {
+  //   modalStore.setState((prev) => ({
+  //     ...prev,
+  //     modals: [], // 모달 전부 제거
   //   }));
   // },
   removeModal() {
-    modalStore.setState((prev) => ({
-      ...prev,
-      modals: prev.modals.slice(0, -1), // 마지막 모달 제거
-    }));
+    modalStore.setState((prev) => {
+      // 마지막 모달의 isVisible을 false로 설정
+      const updatedModals = prev.modals.map((modal, index) =>
+        index === prev.modals.length - 1
+          ? {
+              ...modal,
+              state: {
+                id: modal.state.id,
+                index: modal.state.index,
+                isVisible: false,
+              },
+            }
+          : modal
+      );
+
+      return { ...prev, modals: updatedModals };
+    });
   },
   removeAllModal() {
     modalStore.setState((prev) => ({
       ...prev,
-      modals: [], // 모달 전부 제거
+      modals: prev.modals.map((modal) => ({
+        ...modal,
+        state: {
+          ...modal.state,
+          isVisible: false,
+        },
+      })),
+    }));
+  },
+
+  cleanupModals() {
+    modalStore.setState((prev) => ({
+      ...prev,
+      modals: prev.modals.filter((modal) => modal.state.isVisible),
     }));
   },
 });

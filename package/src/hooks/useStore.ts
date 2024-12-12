@@ -15,10 +15,3 @@ export const useStore = <T>(selector: (state: T) => any): any => {
     selector(store.getState())
   );
 };
-
-export const useModalState = () => {
-  const modals: ModalManager["modals"] = useStore<ModalManager>(
-    (state) => state.modals
-  );
-  return { modals };
-};

@@ -1,7 +1,8 @@
 import { useSyncExternalStore } from "react";
-import { TModalState, TModalObject } from "../model";
+import { TModalObject } from "../model";
 import { modalStore } from "../store/modalStore";
 import { generateUniqueId } from "../lib/generateUniqueId";
+
 // useModal 훅
 export const useModal = () => {
   // 상태 구독
@@ -26,17 +27,40 @@ export const useModal = () => {
       state: {
         id: generateUniqueId(),
         index: modalStore.getState().modals.length,
+        isVisible: true,
       },
     };
     modalStore.getState().addModal(modal);
   };
 
-  const closeModal = () => {
-    modalStore.getState().removeModal();
+  const cleanupModals = () => {
+    modalStore.setState((prev) => ({
+      ...prev,
+      modals: prev.modals.filter((modal) => modal.state.isVisible !== false),
+    }));
   };
-  const closeAllModal = () => {
-    modalStore.getState().removeAllModal();
+  const _closeModal = async () => {
+    await modalStore.getState().removeModal();
+  };
+  // const closeModal = () => {
+  //   _closeModal().then(() => cleanupModals());
+  // };
+  const _closeAllModal = async () => {
+    await modalStore.getState().removeAllModal();
+  };
+  // const closeAllModal = () => {
+  //   _closeAllModal().then(() => cleanupModals());
+  // };
+
+  const closeModal = async () => {
+    await modalStore.getState().removeModal();
+    modalStore.getState().cleanupModals();
   };
 
-  return { modals, openModal, closeModal, closeAllModal };
+  const closeAllModal = async () => {
+    await modalStore.getState().removeAllModal();
+    modalStore.getState().cleanupModals();
+  };
+
+  return { modals, openModal, closeModal, closeAllModal, cleanupModals };
 };

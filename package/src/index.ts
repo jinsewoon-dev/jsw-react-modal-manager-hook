@@ -1,4 +1,4 @@
-export { useModalState } from "./hooks/useStore";
+export { useModalState } from "./hooks/useModalState";
 export { modalStore } from "./store/modalStore";
 export { Modalayout } from "./layouts/ModalLayout";
 export { ModalRenderer } from "./layouts/ModalRenderer";
