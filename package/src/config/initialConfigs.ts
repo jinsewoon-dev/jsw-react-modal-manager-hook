@@ -3,7 +3,6 @@ import { ModalayoutProps } from "../model";
 export const initialState: ModalayoutProps["state"] = {
   id: "uuid",
   index: 0,
-  isVisible: true,
 };
 
 export const initialModalConfig = {

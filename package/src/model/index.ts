@@ -20,13 +20,11 @@ export interface ModalManager {
   addModal: (modal: TModalObject) => void;
   removeModal: () => void;
   removeAllModal: () => void;
-  cleanupModals: () => void;
 }
 
 export type TModalLayoutState = {
   id: string;
   index: number;
-  isVisible: boolean;
 };
 
 export type TModalDefaultConfig = {

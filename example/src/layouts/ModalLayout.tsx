@@ -12,48 +12,45 @@ interface ModalLayoutProps extends PropsWithChildren {
 }
 const ModalLayout = ({
   children,
-  state = { id: "", index: 0, isVisible: true },
+  state = { id: "", index: 0 },
   defaultConfig,
 }: ModalLayoutProps) => {
-  const { modals, closeModal, cleanupModals } = useModal();
-  const currentModal = modals[state.index];
+  const { modal, modals, closeModal } = useModal();
+  const currentModal = modal;
+  console.log({ modal });
   return (
     <AnimatePresence>
-      {currentModal.state.isVisible && (
-        <motion.div
-          key={currentModal.state.id}
-          initial={{
-            opacity: 0,
-          }}
-          animate={{ opacity: 1 }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.3,
-            ease: "ease",
-          }}
-          onClick={() =>
-            currentModal.config?.canDimClickClose ??
-            defaultConfig.canDimClickClose
-              ? closeModal()
-              : null
-          }
-          style={{
-            position: "fixed",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            zIndex: 10000 + state.index,
-          }}
-        >
-          <motion.div onClick={(e) => e.stopPropagation()}>
-            {children}
-          </motion.div>
-        </motion.div>
-      )}
+      <motion.div
+        key={currentModal.state.id}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{ opacity: 1 }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "ease",
+        }}
+        onClick={() =>
+          currentModal.config?.canDimClickClose ??
+          defaultConfig.canDimClickClose
+            ? closeModal()
+            : null
+        }
+        style={{
+          position: "fixed",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          zIndex: 10000 + state.index,
+        }}
+      >
+        <motion.div onClick={(e) => e.stopPropagation()}>{children}</motion.div>
+      </motion.div>
     </AnimatePresence>
   );
 };

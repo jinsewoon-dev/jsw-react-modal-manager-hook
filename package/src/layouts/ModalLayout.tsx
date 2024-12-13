@@ -9,9 +9,10 @@ export const Modalayout = ({
   state = initialState!,
   defaultConfig = initialConfigValue,
 }: ModalayoutProps) => {
-  const { modals, closeModal } = useModal();
-  const currentModal = modals[state.index];
+  const { modal, closeModal } = useModal();
+  const currentModal = modal;
 
+  console.log({ modal });
   // backgroundColor 로직
   const backgroundColor = (() => {
     const hasDimDevalutValue = getOrDefault({
