@@ -22,7 +22,6 @@ const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
         }}
         transition={{
           duration: 0.3,
-          ease: "ease",
         }}
         onClick={() =>
           modal.config?.allowDimClickClose ?? defaultConfig.allowDimClickClose
