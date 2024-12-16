@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { TModalConfig, TModalObject } from "../model";
+import { TModalObject } from "../model";
 import { modalStore } from "../store/modalStore";
 import { generateUniqueId } from "../lib/generateUniqueId";
 
@@ -28,15 +28,15 @@ export const useModal = <T extends {} = {}>() => {
         index: modalStore.getState().modals.length,
       },
     };
-    modalStore.getState().addModal(modal);
+    modalStore.getState().openModal(modal);
   };
 
   const closeModal = () => {
-    modalStore.getState().removeModal();
+    modalStore.getState().closeModal();
   };
 
   const closeAllModal = () => {
-    modalStore.getState().removeAllModal();
+    modalStore.getState().closeAllModal();
   };
 
   return { modal, modals, openModal, closeModal, closeAllModal };
