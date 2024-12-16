@@ -30,3 +30,16 @@ export type TModalLayoutState = {
   id: string;
   index: number;
 };
+
+export type TModalDefaultConfig = {
+  baseZindex: number;
+  customDimColor?: React.CSSProperties["backgroundColor"];
+  className?: string;
+  initialStyle?: React.CSSProperties;
+} & Required<TModalConfig>;
+
+export interface ModalayoutProps {
+  children?: React.ReactNode;
+  state?: TModalLayoutState;
+  defaultConfig: TModalDefaultConfig;
+}

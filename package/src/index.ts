@@ -1,3 +1,4 @@
+export { DefaultModalLayout } from "./layouts/DefaultModalLayout";
 export { useModalState } from "./hooks/useModalState";
 export { modalStore } from "./store/modalStore";
 export { ModalRenderer } from "./layouts/ModalRenderer";
