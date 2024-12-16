@@ -5,13 +5,12 @@ import ModalLayout from "../layouts/ModalLayout";
 const CustomModal = ({ children }: PropsWithChildren) => {
   return (
     <ModalLayout
-    // defaultConfig={{
-    //   customDimColor: "rgba(25, 89, 227,0.3)",
-    //   baseZindex: 10000,
-    //   scrollable: true,
-    //   canDimClickClose: true,
-    //   hasDim: false,
-    // }}
+      defaultConfig={{
+        useDim: true,
+        allowDimClickClose: true,
+        allowBackgroundScroll: false,
+        type: "modal",
+      }}
     >
       {children}
     </ModalLayout>

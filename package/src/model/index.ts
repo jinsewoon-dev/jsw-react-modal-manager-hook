@@ -1,16 +1,8 @@
-// export type TModalConfig<T = {}> = {
-//   hasDim?: boolean;
-//   canDimClickClose?: boolean;
-//   scrollable?: boolean;
-// } & T;
-
-// export type TModalConfig<T = {}> = T;
-
 // 라이브러리 내부: 기본 설정
 export type BaseModalConfig = {
-  // hasDim?: boolean;
-  // canDimClickClose?: boolean;
-  // scrollable?: boolean;
+  useDim?: boolean;
+  allowDimClickClose?: boolean;
+  allowBackgroundScroll?: boolean;
 };
 
 // 제네릭으로 사용자 정의 확장 가능

@@ -1,8 +1,8 @@
 // Store 생성
 import { createStore } from ".";
-import { ModalManager } from "../model";
+import { BaseModalConfig, ModalManager, TModalConfig } from "../model";
 
-export const modalStore = createStore<ModalManager<any>>({
+export const modalStore = createStore<ModalManager<TModalConfig>>({
   modals: [],
   addModal(modal) {
     modalStore.setState((prev) => ({

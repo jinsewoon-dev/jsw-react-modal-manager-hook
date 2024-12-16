@@ -3,8 +3,9 @@ import { useModal } from "@jsw/react-modal-manager-hook";
 
 import CustomModal from "./components/CustomModal";
 import CustomDialog from "./components/CustomDialog";
+import { useCustomModal } from "./hooks/useCustomModal";
 function App() {
-  const { modals, openModal } = useModal();
+  const { modals, openModal } = useCustomModal();
   console.log(modals);
 
   return (
@@ -18,9 +19,7 @@ function App() {
                 <Test />
               </CustomModal>,
               {
-                // canDimClickClose: false,
-                // scrollable: false,
-                // hasDim: true,
+                type: "modal",
               }
             )
           }
@@ -48,8 +47,8 @@ const Test = () => {
               </div>
             </CustomDialog>,
             {
-              scrollable: true,
-              canDimClickClose: true,
+              // scrollable: true,
+              // canDimClickClose: true,
             }
           );
         }}

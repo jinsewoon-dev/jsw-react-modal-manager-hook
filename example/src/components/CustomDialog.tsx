@@ -7,16 +7,11 @@ const CustomDialog = ({ children }: PropsWithChildren) => {
   return (
     <ModalLayout
       defaultConfig={{
-        animationType: "fade",
-        customHeader: <div>asdasd</div>,
+        useDim: true,
+        allowDimClickClose: true,
+        allowBackgroundScroll: false,
+        type: "modal",
       }}
-      // defaultConfig={{
-      //   customDimColor: "rgba(0,0,0,0.5)",
-      //   baseZindex: 20000,
-      //   scrollable: false,
-      //   canDimClickClose: false,
-      //   hasDim: true,
-      // }}
     >
       {children}
     </ModalLayout>

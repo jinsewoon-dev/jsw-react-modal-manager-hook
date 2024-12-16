@@ -1,15 +1,14 @@
 import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren } from "react";
-import { CustomModalConfig } from "../main";
-import { useCustomModal } from "../hooks/useCustomModal";
+import { CustomModalConfig, useCustomModal } from "../hooks/useCustomModal";
+import { TModalConfig } from "@jsw/react-modal-manager-hook";
 
 interface ModalLayoutProps extends PropsWithChildren {
-  defaultConfig: CustomModalConfig;
+  defaultConfig: TModalConfig<CustomModalConfig>;
 }
 const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
-  const { modal } = useCustomModal();
+  const { modal, closeModal } = useCustomModal();
 
-  // const currentModal = modals[modal.state.index];
   return (
     <AnimatePresence>
       <motion.div
@@ -25,12 +24,11 @@ const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
           duration: 0.3,
           ease: "ease",
         }}
-        // onClick={() =>
-        //   modal.config?.canDimClickClose ??
-        //   defaultConfig.canDimClickClose
-        //     ? closeModal()
-        //     : null
-        // }
+        onClick={() =>
+          modal.config?.allowDimClickClose ?? defaultConfig.allowDimClickClose
+            ? closeModal()
+            : null
+        }
         style={{
           position: "fixed",
           inset: 0,
