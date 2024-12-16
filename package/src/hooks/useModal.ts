@@ -20,6 +20,7 @@ export const useModal = <T extends {} = {}>() => {
     content: TModalObject<T>["content"],
     config?: TModalObject<T>["config"]
   ) => {
+    console.log("openModal");
     const modal: TModalObject<T> = {
       content,
       config,
@@ -28,6 +29,7 @@ export const useModal = <T extends {} = {}>() => {
         index: modalStore.getState().modals.length,
       },
     };
+
     modalStore.getState().openModal(modal);
   };
 

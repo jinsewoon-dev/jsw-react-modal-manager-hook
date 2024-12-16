@@ -8,6 +8,10 @@ export type BaseModalConfig = {
 // 제네릭으로 사용자 정의 확장 가능
 export type TModalConfig<T = {}> = BaseModalConfig & T;
 
+export type TModalLayoutState = {
+  id: string;
+  index: number;
+};
 export type TModalObject<T = {}> = {
   content: React.ReactNode;
   config?: TModalConfig<T>;
@@ -26,13 +30,8 @@ export interface ModalManager<T = {}> {
   closeAllModal: () => void;
 }
 
-export type TModalLayoutState = {
-  id: string;
-  index: number;
-};
-
 export type TModalDefaultConfig = {
-  baseZindex: number;
+  baseZindex?: number;
   customDimColor?: React.CSSProperties["backgroundColor"];
   className?: string;
   initialStyle?: React.CSSProperties;
@@ -41,5 +40,5 @@ export type TModalDefaultConfig = {
 export interface ModalayoutProps {
   children?: React.ReactNode;
   state?: TModalLayoutState;
-  defaultConfig: TModalDefaultConfig;
+  defaultConfig?: TModalDefaultConfig;
 }

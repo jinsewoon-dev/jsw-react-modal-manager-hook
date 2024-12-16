@@ -1,3 +1,4 @@
+import { config } from "process";
 import { initialConfigValue } from "../config/initialConfigs";
 import { useModal } from "../hooks/useModal";
 import { getOrDefault } from "../lib/getOrDefault";
@@ -6,15 +7,16 @@ import { ModalayoutProps } from "../model";
 
 export const DefaultModalLayout = ({
   children,
-  defaultConfig = initialConfigValue,
+  defaultConfig = { ...initialConfigValue!, baseZindex: 1000 },
 }: ModalayoutProps) => {
   const { modal, closeModal } = useModal();
   const currentModal = modal;
 
+  console.log({ modal });
   // backgroundColor 로직
   const backgroundColor = (() => {
     const hasDimDevalutValue = getOrDefault({
-      defaultValue: initialConfigValue.useDim,
+      defaultValue: defaultConfig.useDim,
       value: currentModal.config?.useDim,
     });
     const useDim = getOrDefault<boolean>({
@@ -44,14 +46,17 @@ export const DefaultModalLayout = ({
 
     if (useDim) {
       return getOrDefault({
-        defaultValue: initialConfigValue.customDimColor,
+        defaultValue: initialConfigValue!.customDimColor,
         value: defaultConfig.customDimColor,
       });
     }
     return "transparent";
   })();
+
+  console.log({ useDim: currentModal.config?.useDim, backgroundColor });
   return (
     <div
+      className={defaultConfig.className}
       onClick={() =>
         currentModal.config?.allowDimClickClose ??
         defaultConfig.allowDimClickClose
@@ -59,7 +64,7 @@ export const DefaultModalLayout = ({
           : null
       }
       style={{
-        zIndex: defaultConfig.baseZindex + currentModal.state.index,
+        zIndex: defaultConfig.baseZindex! + currentModal.state.index,
         backgroundColor,
         ...(defaultConfig.initialStyle ?? initialConfigValue!.initialStyle),
       }}

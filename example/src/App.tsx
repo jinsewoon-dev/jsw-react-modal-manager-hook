@@ -1,12 +1,7 @@
 import "./App.css";
-import { useModal } from "@jsw/react-modal-manager-hook";
-
-import CustomModal from "./components/CustomModal";
-import CustomDialog from "./components/CustomDialog";
-import { useCustomModal } from "./hooks/useCustomModal";
+import { DefaultModalLayout, useModal } from "@jsw/react-modal-manager-hook";
 function App() {
-  const { modals, openModal } = useCustomModal();
-  console.log(modals);
+  const { openModal } = useModal();
 
   return (
     <>
@@ -15,12 +10,15 @@ function App() {
           type="button"
           onClick={() =>
             openModal(
-              <CustomModal>
+              <DefaultModalLayout
+                defaultConfig={{
+                  useDim: true,
+                  allowDimClickClose: false,
+                  allowBackgroundScroll: false,
+                }}
+              >
                 <Test />
-              </CustomModal>,
-              {
-                type: "modal",
-              }
+              </DefaultModalLayout>
             )
           }
         >
@@ -40,16 +38,18 @@ const Test = () => {
       <button
         onClick={() => {
           openModal(
-            <CustomDialog>
+            <DefaultModalLayout
+              defaultConfig={{
+                useDim: false,
+                allowDimClickClose: false,
+                allowBackgroundScroll: false,
+              }}
+            >
               <div>
                 <div>Dialog</div>
                 <button onClick={closeAllModal}>닫기</button>
               </div>
-            </CustomDialog>,
-            {
-              // scrollable: true,
-              // canDimClickClose: true,
-            }
+            </DefaultModalLayout>
           );
         }}
       >
