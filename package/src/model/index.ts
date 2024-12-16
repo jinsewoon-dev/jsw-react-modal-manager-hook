@@ -21,9 +21,9 @@ export type TModalState = {
 
 export interface ModalManager<T = {}> {
   modals: TModalObject<T>[];
-  addModal: (modal: TModalObject<T>) => void;
-  removeModal: () => void;
-  removeAllModal: () => void;
+  openModal: (modal: TModalObject<T>) => void;
+  closeModal: () => void;
+  closeAllModal: () => void;
 }
 
 export type TModalLayoutState = {
