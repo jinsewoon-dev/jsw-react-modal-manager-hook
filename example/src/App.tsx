@@ -4,28 +4,48 @@ function App() {
   const { openModal } = useModal();
 
   return (
-    <>
+    <div style={{ width: "100%", height: "300dvh", backgroundColor: "teal" }}>
       <div>
-        <button
-          type="button"
-          onClick={() =>
-            openModal(
-              <DefaultModalLayout
-                defaultConfig={{
-                  useDim: true,
-                  allowDimClickClose: false,
-                  allowBackgroundScroll: false,
-                }}
-              >
-                <Test />
-              </DefaultModalLayout>
-            )
-          }
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            height: "100dvh",
+          }}
         >
-          Modal
-        </button>
+          <button
+            type="button"
+            onClick={() =>
+              openModal(
+                <DefaultModalLayout
+                  defaultConfig={{
+                    useDim: true,
+                    allowDimClickClose: false,
+                    allowBackgroundScroll: false,
+                  }}
+                >
+                  <Test />
+                </DefaultModalLayout>
+              )
+            }
+          >
+            Modal
+          </button>
+        </div>
       </div>
-    </>
+      <div
+        style={{
+          height: "10dvh",
+          backgroundColor: "red",
+          position: "sticky",
+          top: 0,
+        }}
+      >
+        123123
+      </div>
+      <div style={{ height: "100dvh" }}></div>
+    </div>
   );
 }
 

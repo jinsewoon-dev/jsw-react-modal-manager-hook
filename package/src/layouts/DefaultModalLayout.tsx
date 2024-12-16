@@ -1,4 +1,3 @@
-import { config } from "process";
 import { initialConfigValue } from "../config/initialConfigs";
 import { useModal } from "../hooks/useModal";
 import { getOrDefault } from "../lib/getOrDefault";

@@ -5,6 +5,8 @@ export const ModalRenderer = () => {
   const { modals } = useModalState();
 
   return modals.map((modal) => (
-    <Fragment key={modal.state.id}>{modal.content}</Fragment>
+    <div style={{ zIndex: 10000, position: "relative" }} key={modal.state.id}>
+      {modal.content}
+    </div>
   ));
 };
