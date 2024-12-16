@@ -1,10 +1,10 @@
 // Store 생성
 import { createStore } from ".";
-import { ModalManager, TModalObject } from "../model";
+import { ModalManager } from "../model";
 
-export const modalStore = createStore<ModalManager>({
+export const modalStore = createStore<ModalManager<any>>({
   modals: [],
-  addModal(modal: TModalObject) {
+  addModal(modal) {
     modalStore.setState((prev) => ({
       ...prev,
       modals: [...prev.modals, modal], // modals 배열에 새 모달 추가

@@ -1,12 +1,24 @@
-export type TModalConfig = {
-  hasDim?: boolean;
-  canDimClickClose?: boolean;
-  scrollable?: boolean;
+// export type TModalConfig<T = {}> = {
+//   hasDim?: boolean;
+//   canDimClickClose?: boolean;
+//   scrollable?: boolean;
+// } & T;
+
+// export type TModalConfig<T = {}> = T;
+
+// 라이브러리 내부: 기본 설정
+export type BaseModalConfig = {
+  // hasDim?: boolean;
+  // canDimClickClose?: boolean;
+  // scrollable?: boolean;
 };
 
-export type TModalObject = {
+// 제네릭으로 사용자 정의 확장 가능
+export type TModalConfig<T = {}> = BaseModalConfig & T;
+
+export type TModalObject<T = {}> = {
   content: React.ReactNode;
-  config?: TModalConfig;
+  config?: TModalConfig<T>;
   state: TModalLayoutState;
 };
 /**삭제예정 */
@@ -15,9 +27,9 @@ export type TModalState = {
   config?: TModalConfig;
 };
 
-export interface ModalManager {
-  modals: TModalObject[];
-  addModal: (modal: TModalObject) => void;
+export interface ModalManager<T = {}> {
+  modals: TModalObject<T>[];
+  addModal: (modal: TModalObject<T>) => void;
   removeModal: () => void;
   removeAllModal: () => void;
 }
@@ -26,16 +38,3 @@ export type TModalLayoutState = {
   id: string;
   index: number;
 };
-
-export type TModalDefaultConfig = {
-  baseZindex: number;
-  customDimColor?: React.CSSProperties["backgroundColor"];
-  className?: string;
-  initialStyle?: React.CSSProperties;
-} & Required<TModalConfig>;
-
-export interface ModalayoutProps {
-  children?: React.ReactNode;
-  state?: TModalLayoutState;
-  defaultConfig: TModalDefaultConfig;
-}

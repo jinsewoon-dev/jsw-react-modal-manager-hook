@@ -18,9 +18,9 @@ function App() {
                 <Test />
               </CustomModal>,
               {
-                canDimClickClose: false,
-                scrollable: false,
-                hasDim: true,
+                // canDimClickClose: false,
+                // scrollable: false,
+                // hasDim: true,
               }
             )
           }

@@ -4,7 +4,7 @@ import { modalStore } from "../store/modalStore";
 import { generateUniqueId } from "../lib/generateUniqueId";
 
 // useModal 훅
-export const useModal = () => {
+export const useModal = <T = {}>() => {
   // 상태 구독
   const modals = useSyncExternalStore(
     modalStore.subscribe, // 상태 변경 구독
@@ -17,16 +17,12 @@ export const useModal = () => {
 
   // 상태 조작 메서드
   const openModal = (
-    content: TModalObject["content"],
-    config?: TModalObject["config"]
+    content: TModalObject<T>["content"],
+    config?: TModalObject<T>["config"]
   ) => {
-    const modal: TModalObject = {
+    const modal: TModalObject<T> = {
       content,
-      config: {
-        canDimClickClose: config?.canDimClickClose ?? undefined,
-        scrollable: config?.scrollable ?? undefined,
-        hasDim: config?.hasDim ?? undefined,
-      },
+      config,
       state: {
         id: generateUniqueId(),
         index: modalStore.getState().modals.length,

@@ -1,27 +1,19 @@
-import {
-  TModalDefaultConfig,
-  TModalLayoutState,
-  useModal,
-} from "@jsw/react-modal-manager-hook";
 import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren } from "react";
+import { CustomModalConfig } from "../main";
+import { useCustomModal } from "../hooks/useCustomModal";
 
 interface ModalLayoutProps extends PropsWithChildren {
-  state?: TModalLayoutState;
-  defaultConfig: TModalDefaultConfig;
+  defaultConfig: CustomModalConfig;
 }
-const ModalLayout = ({
-  children,
-  state = { id: "", index: 0 },
-  defaultConfig,
-}: ModalLayoutProps) => {
-  const { modal, modals, closeModal } = useModal();
-  const currentModal = modal;
-  console.log({ modal });
+const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
+  const { modal } = useCustomModal();
+
+  // const currentModal = modals[modal.state.index];
   return (
     <AnimatePresence>
       <motion.div
-        key={currentModal.state.id}
+        key={modal.state.id}
         initial={{
           opacity: 0,
         }}
@@ -33,12 +25,12 @@ const ModalLayout = ({
           duration: 0.3,
           ease: "ease",
         }}
-        onClick={() =>
-          currentModal.config?.canDimClickClose ??
-          defaultConfig.canDimClickClose
-            ? closeModal()
-            : null
-        }
+        // onClick={() =>
+        //   modal.config?.canDimClickClose ??
+        //   defaultConfig.canDimClickClose
+        //     ? closeModal()
+        //     : null
+        // }
         style={{
           position: "fixed",
           inset: 0,
@@ -46,7 +38,7 @@ const ModalLayout = ({
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "rgba(0,0,0,0.5)",
-          zIndex: 10000 + state.index,
+          zIndex: 10000 + modal.state.index,
         }}
       >
         <motion.div onClick={(e) => e.stopPropagation()}>{children}</motion.div>

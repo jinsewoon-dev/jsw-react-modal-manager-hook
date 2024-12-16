@@ -6,6 +6,12 @@ import { ModalProvider } from "@jsw/react-modal-manager-hook";
 // import { AnimatePresence } from "motion/react";
 import ModalRenderer from "./components/ModalRenderer.tsx";
 
+// 사용자가 정의한 타입
+export type CustomModalConfig = {
+  animationType?: "fade" | "slide";
+  customHeader?: React.ReactNode;
+};
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ModalProvider>
