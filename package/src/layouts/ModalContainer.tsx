@@ -1,7 +1,6 @@
-import { Fragment } from "react";
 import { useModalState } from "../hooks/useModalState";
 
-export const ModalRenderer = () => {
+export const ModalContainer = () => {
   const { modals } = useModalState();
 
   return modals.map((modal) => (

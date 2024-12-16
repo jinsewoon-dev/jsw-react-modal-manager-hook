@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { Store } from "../store";
 import { modalStore } from "../store/modalStore";
-import { ModalRenderer } from "../layouts/ModalRenderer";
+import { ModalContainer } from "../layouts/ModalContainer";
 
 export const ModalContext = createContext<Store<any> | null>(null);
 
@@ -14,7 +14,7 @@ export const ModalProvider = ({
 }) => {
   return (
     <ModalContext.Provider value={modalStore}>
-      {customModalContainer ?? <ModalRenderer />}
+      {customModalContainer ?? <ModalContainer />}
       {children}
     </ModalContext.Provider>
   );

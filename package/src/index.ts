@@ -1,7 +1,7 @@
+import { ModalContainer } from "./layouts/ModalContainer";
 export { DefaultModalLayout } from "./layouts/DefaultModalLayout";
 export { useModalState } from "./hooks/useModalState";
 export { modalStore } from "./store/modalStore";
-export { ModalRenderer } from "./layouts/ModalRenderer";
 export { ModalProvider } from "./context/ModalProvider";
 export { useModal } from "./hooks/useModal";
 
