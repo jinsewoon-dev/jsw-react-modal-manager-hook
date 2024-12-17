@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body:has([data-allow-background-scroll="true"]) {
 }
 body:has([data-allow-background-scroll="false"]) {
