@@ -3,19 +3,5 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@shadcn/*": ["./src/shadcn/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@components/*": ["./src/components/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@stores/*": ["./src/stores/*"],
-      "@templates/*": ["./src/templates/*"],
-      "@lib/*": ["./src/lib/*"]
-    }
-  }
+  ]
 }
