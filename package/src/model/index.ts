@@ -39,6 +39,5 @@ export type TModalDefaultConfig = {
 
 export interface ModalayoutProps {
   children?: React.ReactNode;
-  state?: TModalLayoutState;
   defaultConfig?: TModalDefaultConfig;
 }

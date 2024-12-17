@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, CSSProperties } from "react";
 import { Store } from "../store";
 import { modalStore } from "../store/modalStore";
 import { ModalContainer } from "../layouts/ModalContainer";

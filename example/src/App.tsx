@@ -34,16 +34,28 @@ function App() {
           </button>
         </div>
       </div>
-      <div
-        style={{
-          height: "10dvh",
-          backgroundColor: "red",
-          position: "sticky",
-          top: 0,
-        }}
-      >
-        123123
-      </div>
+      {/* <div>
+        <div style={{ position: "relative" }}>
+          <div>
+            <div style={{ position: "relative" }}>
+              <div>
+                <div
+                  style={{
+                    height: "10dvh",
+                    backgroundColor: "red",
+                    position: "sticky",
+                    zIndex: 0,
+                    top: 0,
+                  }}
+                >
+                  123123
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
       <div style={{ height: "100dvh" }}></div>
     </div>
   );
