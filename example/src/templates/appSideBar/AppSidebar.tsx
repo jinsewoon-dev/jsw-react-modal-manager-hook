@@ -1,4 +1,12 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  ArrowUp,
+  ArrowDown,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -9,8 +17,17 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
 } from "@shadcn/components/ui/sidebar";
 import { ROUTER_PATHS } from "@constants/ROUTER_PATHS";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@shadcn/components/ui/collapsible";
+import { useState } from "react";
+import SidebarCollapsibleMenu from "./components/SidebarCollapsibleMenu";
 
 // Menu items.
 const items = [
@@ -42,10 +59,11 @@ const items = [
 ];
 
 const AppSidebar = () => {
+  const [toggle, setToggle] = useState<boolean>(false);
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent>
-        <SidebarGroup>
+        {/* <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -61,7 +79,14 @@ const AppSidebar = () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup> */}
+        <SidebarCollapsibleMenu
+          categoryData={{
+            title: "category",
+            icon: Calendar,
+          }}
+          subMenuData={items}
+        />
       </SidebarContent>
     </Sidebar>
   );

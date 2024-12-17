@@ -1,4 +1,8 @@
-import { SidebarProvider, SidebarTrigger } from "@shadcn/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@shadcn/components/ui/sidebar";
 import AppSidebar from "@templates/appSideBar/AppSidebar";
 import { PropsWithChildren } from "react";
 const GlobalLayout = ({ children }: PropsWithChildren) => {
