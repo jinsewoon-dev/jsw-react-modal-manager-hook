@@ -1,6 +1,6 @@
 // import { AnimatePresence, motion } from "motion/react";
 import { PropsWithChildren } from "react";
-import { CustomModalConfig, useCustomModal } from "../hooks/useCustomModal";
+import { CustomModalConfig } from "../hooks/useCustomModal";
 import {
   DefaultModalLayout,
   TModalDefaultConfig,
