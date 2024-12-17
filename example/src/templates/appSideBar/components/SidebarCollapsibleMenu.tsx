@@ -1,3 +1,4 @@
+import Icon, { IconName } from "@components/icon/Icon";
 import {
   Collapsible,
   CollapsibleContent,
@@ -17,9 +18,7 @@ import { Link } from "react-router-dom";
 interface SidebarCollapsibleMenuProps {
   categoryData: {
     title: string;
-    icon: React.ForwardRefExoticComponent<
-      Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-    >;
+    icon: IconName;
   };
   subMenuData: {
     title: string;
@@ -42,8 +41,9 @@ const SidebarCollapsibleMenu = ({
         <SidebarMenuItem>
           <CollapsibleTrigger asChild>
             <SidebarMenuButton className="flex justify-between">
-              <span>
-                {<categoryData.icon />} {categoryData.title}
+              <span className="inline-flex items-center gap-1 text-[16px]">
+                {<Icon name={categoryData.icon} size={16} />}{" "}
+                {categoryData.title}
               </span>{" "}
               {open ? <ArrowUp /> : <ArrowDown />}
             </SidebarMenuButton>
@@ -53,7 +53,9 @@ const SidebarCollapsibleMenu = ({
               return (
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
-                    <Link to={submenu.url}>{submenu.title}</Link>
+                    <Link to={submenu.url} className="text-[14px]">
+                      {submenu.title}
+                    </Link>
                   </SidebarMenuSubItem>
                 </SidebarMenuSub>
               );

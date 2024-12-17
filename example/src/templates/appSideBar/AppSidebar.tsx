@@ -63,7 +63,7 @@ const AppSidebar = () => {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
-        {/* <SidebarGroup>
+        <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -79,11 +79,11 @@ const AppSidebar = () => {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup> */}
+        </SidebarGroup>
         <SidebarCollapsibleMenu
           categoryData={{
             title: "category",
-            icon: Calendar,
+            icon: "Activity",
           }}
           subMenuData={items}
         />
