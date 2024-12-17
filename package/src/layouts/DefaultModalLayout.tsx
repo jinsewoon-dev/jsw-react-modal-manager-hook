@@ -4,16 +4,29 @@ import { getOrDefault } from "../lib/getOrDefault";
 import { logError } from "../lib/logError";
 import { ModalayoutProps } from "../model";
 
-export const DefaultModalLayout = ({
+const BASE_ZINDEX = 10000;
+export const DefaultModalLayout = <T,>({
   children,
-  defaultConfig = { ...initialConfigValue!, baseZindex: 1000 },
-}: ModalayoutProps) => {
+  defaultConfig = { ...initialConfigValue!, baseZindex: BASE_ZINDEX },
+}: ModalayoutProps<T>) => {
   const { lastedModal, closeModal } = useModal();
   const currentModal = lastedModal;
 
+  if (
+    defaultConfig.useDim === undefined ||
+    defaultConfig.allowDimClickClose === undefined ||
+    defaultConfig.allowBackgroundScroll === undefined
+  ) {
+    logError({
+      type: "설정 오류",
+      message:
+        "DefaultModalLayout에서 필수값인 useDim,allowDimClickClose,allowBackgroundScroll 값이 제대로 설정되지않았습니다.",
+    });
+    return;
+  }
   // backgroundColor 로직
   const backgroundColor = (() => {
-    const hasDimDevalutValue = getOrDefault({
+    const hasDimDevalutValue = getOrDefault<boolean>({
       defaultValue: defaultConfig.useDim,
       value: currentModal.config?.useDim,
     });
@@ -62,7 +75,8 @@ export const DefaultModalLayout = ({
           : null
       }
       style={{
-        zIndex: defaultConfig.baseZindex! + currentModal.state.index,
+        zIndex:
+          defaultConfig.baseZindex ?? BASE_ZINDEX + currentModal.state.index,
         backgroundColor,
         ...(defaultConfig.initialStyle ?? initialConfigValue!.initialStyle),
       }}

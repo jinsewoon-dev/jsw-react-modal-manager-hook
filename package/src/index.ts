@@ -9,4 +9,5 @@ export type {
   TModalState,
   TModalConfig,
   TModalLayoutState,
+  TModalDefaultConfig,
 } from "./model/index";

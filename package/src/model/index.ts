@@ -1,12 +1,12 @@
 // 라이브러리 내부: 기본 설정
-export type BaseModalConfig = {
+export type TBaseModalConfig = {
   useDim?: boolean;
   allowDimClickClose?: boolean;
   allowBackgroundScroll?: boolean;
 };
 
 // 제네릭으로 사용자 정의 확장 가능
-export type TModalConfig<T = {}> = BaseModalConfig & T;
+export type TModalConfig<T = {}> = TBaseModalConfig & T;
 
 export type TModalLayoutState = {
   id: string;
@@ -30,14 +30,14 @@ export interface ModalManager<T = {}> {
   closeAllModals: () => void;
 }
 
-export type TModalDefaultConfig = {
+export type TModalDefaultConfig<T> = {
   baseZindex?: number;
   customDimColor?: React.CSSProperties["backgroundColor"];
   className?: string;
   initialStyle?: React.CSSProperties;
-} & Required<TModalConfig>;
+} & Required<TModalConfig<T>>;
 
-export interface ModalayoutProps {
+export interface ModalayoutProps<T> {
   children?: React.ReactNode;
-  defaultConfig?: TModalDefaultConfig;
+  defaultConfig?: TModalDefaultConfig<T>;
 }

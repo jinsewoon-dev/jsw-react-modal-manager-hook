@@ -1,7 +1,9 @@
 import "./App.css";
 import { DefaultModalLayout, useModal } from "@jsw/react-modal-manager-hook";
+import { useCustomModal } from "./hooks/useCustomModal";
+import ModalLayout from "./layouts/ModalLayout";
 function App() {
-  const { openModal } = useModal();
+  const { openModal } = useCustomModal();
 
   return (
     <div style={{ width: "100%", height: "300dvh", backgroundColor: "teal" }}>
@@ -18,15 +20,16 @@ function App() {
             type="button"
             onClick={() =>
               openModal(
-                <DefaultModalLayout
+                <ModalLayout
                   defaultConfig={{
+                    type: "modal",
                     useDim: true,
                     allowDimClickClose: false,
                     allowBackgroundScroll: false,
                   }}
                 >
                   <Test />
-                </DefaultModalLayout>
+                </ModalLayout>
               )
             }
           >
@@ -34,28 +37,6 @@ function App() {
           </button>
         </div>
       </div>
-      {/* <div>
-        <div style={{ position: "relative" }}>
-          <div>
-            <div style={{ position: "relative" }}>
-              <div>
-                <div
-                  style={{
-                    height: "10dvh",
-                    backgroundColor: "red",
-                    position: "sticky",
-                    zIndex: 0,
-                    top: 0,
-                  }}
-                >
-                  123123
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <div style={{ height: "100dvh" }}></div>
     </div>
   );
