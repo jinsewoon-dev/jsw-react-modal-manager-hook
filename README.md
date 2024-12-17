@@ -244,6 +244,7 @@ export type CustomModalConfig = {
 // 커스텀 훅으로 래핑
 export const useCustomModal = () => {
   const { latestModal, modals, openModal, closeModal, closeAllModals } =
+    //CustomModalConfig을 TModalConfig의 제네릭으로 전달
     useModal<TModalConfig<CustomModalConfig>>();
 
   return { latestModal, modals, openModal, closeModal, closeAllModals };
