@@ -24,6 +24,8 @@
 
     "baseUrl": ".",
     "paths": {
+      // "@/*": ["./src/*"],
+      "@router": ["./src/router.tsx"],
       "@assets/*": ["./src/assets/*"],
       "@shadcn/*": ["./src/shadcn/*"],
       "@pages/*": ["./src/pages/*"],
@@ -33,7 +35,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@lib/*": ["./src/lib/*"],
       "@stores/*": ["./src/stores/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@constants/*": ["./src/constants/*"]
     }
   },
   "include": ["src"]

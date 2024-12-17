@@ -3,10 +3,8 @@ import App from "./App";
 import BasicPage from "@pages/basic/Basic";
 import IntroPage from "@pages/intro/Intro";
 
-export const ROUTER_PATHS = {
-  INTRO: "/",
-  BASIC: "/basic",
-};
+import { ROUTER_PATHS } from "@constants/ROUTER_PATHS";
+
 export const router = createBrowserRouter([
   {
     path: "/",
