@@ -64,7 +64,7 @@ function App() {
 export default App;
 
 const Test = () => {
-  const { openModal, closeModal, closeAllModal } = useModal();
+  const { openModal, closeModal, closeAllModals } = useModal();
   return (
     <div style={{ backgroundColor: "#fff" }}>
       <button
@@ -79,7 +79,7 @@ const Test = () => {
             >
               <div>
                 <div>Dialog</div>
-                <button onClick={closeAllModal}>닫기</button>
+                <button onClick={closeAllModals}>닫기</button>
               </div>
             </DefaultModalLayout>
           );

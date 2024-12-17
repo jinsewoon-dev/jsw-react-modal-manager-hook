@@ -8,10 +8,9 @@ export const DefaultModalLayout = ({
   children,
   defaultConfig = { ...initialConfigValue!, baseZindex: 1000 },
 }: ModalayoutProps) => {
-  const { modal, closeModal } = useModal();
-  const currentModal = modal;
+  const { lastedModal, closeModal } = useModal();
+  const currentModal = lastedModal;
 
-  console.log({ modal });
   // backgroundColor 로직
   const backgroundColor = (() => {
     const hasDimDevalutValue = getOrDefault({

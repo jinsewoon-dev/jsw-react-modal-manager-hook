@@ -27,7 +27,7 @@ export interface ModalManager<T = {}> {
   modals: TModalObject<T>[];
   openModal: (modal: TModalObject<T>) => void;
   closeModal: () => void;
-  closeAllModal: () => void;
+  closeAllModals: () => void;
 }
 
 export type TModalDefaultConfig = {

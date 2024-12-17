@@ -16,7 +16,7 @@ export const modalStore = createStore<ModalManager<TModalConfig>>({
       modals: prev.modals.slice(0, -1), // 마지막 모달 제거
     }));
   },
-  closeAllModal() {
+  closeAllModals() {
     modalStore.setState((prev) => ({
       ...prev,
       modals: [], // 모달 전부 제거

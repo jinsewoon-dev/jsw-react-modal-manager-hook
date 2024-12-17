@@ -13,7 +13,7 @@ export const useModal = <T extends {} = {}>() => {
   ).modals as TModalObject<T>[]; // 제네릭 타입 반영;
 
   const modalIndex = modals.length;
-  const modal = modals[modalIndex - 1] as TModalObject<T>;
+  const lastedModal = modals[modalIndex - 1] as TModalObject<T>;
 
   // 상태 조작 메서드
   const openModal = (
@@ -37,9 +37,9 @@ export const useModal = <T extends {} = {}>() => {
     modalStore.getState().closeModal();
   };
 
-  const closeAllModal = () => {
-    modalStore.getState().closeAllModal();
+  const closeAllModals = () => {
+    modalStore.getState().closeAllModals();
   };
 
-  return { modal, modals, openModal, closeModal, closeAllModal };
+  return { lastedModal, modals, openModal, closeModal, closeAllModals };
 };

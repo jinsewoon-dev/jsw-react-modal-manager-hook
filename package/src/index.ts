@@ -1,4 +1,3 @@
-import { ModalContainer } from "./layouts/ModalContainer";
 export { DefaultModalLayout } from "./layouts/DefaultModalLayout";
 export { useModalState } from "./hooks/useModalState";
 export { modalStore } from "./store/modalStore";

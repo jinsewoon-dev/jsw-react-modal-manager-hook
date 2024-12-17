@@ -6,8 +6,8 @@ export type CustomModalConfig = {
 };
 
 export const useCustomModal = () => {
-  const { modal, modals, openModal, closeModal, closeAllModal } =
+  const { lastedModal, modals, openModal, closeModal, closeAllModals } =
     useModal<TModalConfig<CustomModalConfig>>();
 
-  return { modal, modals, openModal, closeModal, closeAllModal };
+  return { lastedModal, modals, openModal, closeModal, closeAllModals };
 };

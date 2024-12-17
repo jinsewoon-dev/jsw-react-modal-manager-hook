@@ -7,12 +7,12 @@ interface ModalLayoutProps extends PropsWithChildren {
   defaultConfig: TModalConfig<CustomModalConfig>;
 }
 const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
-  const { modal, closeModal } = useCustomModal();
+  const { lastedModal, closeModal } = useCustomModal();
 
   return (
     <AnimatePresence>
       <motion.div
-        key={modal.state.id}
+        key={lastedModal.state.id}
         initial={{
           opacity: 0,
         }}
@@ -22,9 +22,11 @@ const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
         }}
         transition={{
           duration: 0.3,
+          ease: "ease",
         }}
         onClick={() =>
-          modal.config?.allowDimClickClose ?? defaultConfig.allowDimClickClose
+          lastedModal.config?.allowDimClickClose ??
+          defaultConfig.allowDimClickClose
             ? closeModal()
             : null
         }
@@ -35,7 +37,7 @@ const ModalLayout = ({ children, defaultConfig }: ModalLayoutProps) => {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "rgba(0,0,0,0.5)",
-          zIndex: 10000 + modal.state.index,
+          zIndex: 10000 + lastedModal.state.index,
         }}
       >
         <motion.div onClick={(e) => e.stopPropagation()}>{children}</motion.div>
