@@ -1,7 +1,8 @@
+import GlobalLayout from "@layouts/globalLayout/GlobalLayout";
 import "./App.css";
 
 function App() {
-  return <></>;
+  return <GlobalLayout></GlobalLayout>;
 }
 
 export default App;
