@@ -1,8 +1,8 @@
-import { ModalManager, TModalConfig } from "../model";
+import { TModalManager, TModalConfig } from "../model";
 import { useStore } from "./useStore";
 
 export const useModalState = () => {
-  const modals: ModalManager["modals"] = useStore<ModalManager<TModalConfig>>(
+  const modals: TModalManager["modals"] = useStore<TModalManager<TModalConfig>>(
     (state) => state.modals
   );
   return { modals };

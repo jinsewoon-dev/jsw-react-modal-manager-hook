@@ -16,6 +16,10 @@ export type TModalObject<T = {}> = {
   content: React.ReactNode;
   config?: TModalConfig<T>;
   state: TModalLayoutState;
+  /**
+   * 모달 렌더링 여부
+   */
+  isVisible: boolean;
 };
 /**삭제예정 */
 export type TModalState = {
@@ -23,11 +27,14 @@ export type TModalState = {
   config?: TModalConfig;
 };
 
-export interface ModalManager<T = {}> {
+export interface TModalManager<T = {}> {
+  modal: TModalObject<T> | null;
   modals: TModalObject<T>[];
   openModal: (modal: TModalObject<T>) => void;
   closeModal: () => void;
+  delayCloseModal: () => void;
   closeAllModals: () => void;
+  delayCloseAllModal: () => void;
 }
 
 export type TModalDefaultConfig<T> = {
@@ -35,9 +42,11 @@ export type TModalDefaultConfig<T> = {
   customDimColor?: React.CSSProperties["backgroundColor"];
   className?: string;
   initialStyle?: React.CSSProperties;
+  cleanupDelay?: number;
 } & Required<TModalConfig<T>>;
 
 export interface ModalayoutProps<T> {
   children?: React.ReactNode;
+  state?: TModalLayoutState;
   defaultConfig?: TModalDefaultConfig<T>;
 }

@@ -2,15 +2,18 @@ import { initialConfigValue } from "../config/initialConfigs";
 import { useModal } from "../hooks/useModal";
 import { getOrDefault } from "../lib/getOrDefault";
 import { logError } from "../lib/logError";
-import { ModalayoutProps } from "../model";
+import { ModalayoutProps, TModalLayoutState } from "../model";
 
 const BASE_ZINDEX = 10000;
 export const DefaultModalLayout = <T,>({
   children,
+  state,
   defaultConfig = { ...initialConfigValue!, baseZindex: BASE_ZINDEX },
 }: ModalayoutProps<T>) => {
-  const { lastedModal, closeModal } = useModal();
-  const currentModal = lastedModal;
+  const { modals, closeModal } = useModal({
+    cleanupDelay: defaultConfig.cleanupDelay,
+  });
+  const currentModal = modals[state?.index ?? 0];
 
   if (
     defaultConfig.useDim === undefined ||

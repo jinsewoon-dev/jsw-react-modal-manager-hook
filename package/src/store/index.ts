@@ -17,9 +17,28 @@ export class Store<T> {
     this.state = updater(this.state);
     this.notify();
   };
-  //기존 상태와 병합가능함
+  // //기존 상태와 병합가능함
+  // updateState = (updater: (prevState: T) => T) => {
+  //   this.state = { ...this.state, ...updater(this.state) }; // 상태 불변성 보장
+  //   this.notify();
+  // };
   updateState = (updater: (prevState: T) => T) => {
-    this.state = { ...this.state, ...updater(this.state) }; // 상태 불변성 보장
+    const nextState = updater(this.state);
+
+    if (Array.isArray(this.state) && Array.isArray(nextState)) {
+      // 배열 상태는 그대로 교체
+      this.state = nextState as T;
+    } else if (
+      typeof this.state === "object" &&
+      typeof nextState === "object"
+    ) {
+      // 객체 상태는 병합
+      this.state = { ...this.state, ...nextState };
+    } else {
+      // 단순 값인 경우 대체
+      this.state = nextState;
+    }
+
     this.notify();
   };
 

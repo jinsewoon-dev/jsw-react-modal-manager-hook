@@ -6,8 +6,9 @@ export type CustomModalConfig = {
 };
 
 export const useCustomModal = () => {
-  const { lastedModal, modals, openModal, closeModal, closeAllModals } =
-    useModal<TModalConfig<CustomModalConfig>>();
-
-  return { lastedModal, modals, openModal, closeModal, closeAllModals };
+  const modal = useModal<TModalConfig<CustomModalConfig>>({
+    cleanupDelay: 300,
+  });
+  console.log({ modal: modal.lastedModal });
+  return { ...modal };
 };
