@@ -1,0 +1,27 @@
+/* 기본 fade-in 애니메이션 */
+.fadeIn {
+  animation: fadeIn 300ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 기본 fade-out 애니메이션 */
+.fadeOut {
+  animation: fadeOut 300ms ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

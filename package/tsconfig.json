@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "outDir": "./dist", // 출력 폴더
+    "rootDir": "./src", // 입력 파일 기준 폴더
+    "declaration": true, // 타입 정의 파일 생성
+    "declarationDir": "./dist", // 타입 정의 파일 경로
     "target": "es2020",
     "module": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -15,6 +19,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["src", "src/**/*.ts", "declarations.d.ts"],
   "exclude": ["node_modules"]
 }

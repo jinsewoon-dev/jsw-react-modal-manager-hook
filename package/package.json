@@ -5,15 +5,22 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "dist/index.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./index.css": "./dist/index.css"
   },
   "scripts": {
-    "build": "tsup",
+    "build:css": "postcss src/**/*.css --dir dist --flatten",
+    "build:ts": "tsup",
+    "build": "npm run build:css && npm run build:ts",
     "dev": "tsup --watch",
     "test": "vitest"
   },
@@ -21,6 +28,12 @@
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
+    "esbuild-css-modules-plugin": "^3.1.2",
+    "esbuild-plugin-postcss": "^0.2.1",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-modules": "^6.0.1",
+    "postcss-preset-env": "^10.1.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
     "vitest": "^1.0.0"

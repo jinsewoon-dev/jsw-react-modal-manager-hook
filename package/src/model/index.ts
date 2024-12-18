@@ -12,13 +12,10 @@ export type TModalLayoutState = {
   id: string;
   index: number;
 };
-export type TModalObject<T = {}> = {
+export type TModalObject<T = unknown> = {
   content: React.ReactNode;
   config?: TModalConfig<T>;
   state: TModalLayoutState;
-  /**
-   * 모달 렌더링 여부
-   */
   isVisible: boolean;
 };
 /**삭제예정 */
@@ -28,13 +25,13 @@ export type TModalState = {
 };
 
 export interface TModalManager<T = {}> {
-  modal: TModalObject<T> | null;
   modals: TModalObject<T>[];
   openModal: (modal: TModalObject<T>) => void;
   closeModal: () => void;
   delayCloseModal: () => void;
   closeAllModals: () => void;
   delayCloseAllModal: () => void;
+  // delayCloseAllModal: (cleanupDelay: number) => void;
 }
 
 export type TModalDefaultConfig<T> = {

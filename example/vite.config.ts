@@ -21,4 +21,9 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "./src/hooks"),
     },
   },
+  css: {
+    modules: {
+      localsConvention: "camelCaseOnly", // CSS 모듈 네이밍 방식
+    },
+  },
 });

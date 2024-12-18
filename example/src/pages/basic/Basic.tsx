@@ -1,35 +1,62 @@
-import CustomDialog from "@components/CustomDialog";
-import CustomModal from "@components/CustomModal";
-import { useCustomModal } from "@hooks/useCustomModal";
-
+import { useModal } from "@jsw/react-modal-manager-hook";
 import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
 
 const NestMdoal = () => {
-  const { closeAllModals, closeModal } = useCustomModal();
+  const { openModal, closeModal, closeAllModals } = useModal();
   return (
-    <CustomDialog>
-      <div className="p-4 bg-white">
-        <div>CustomDialog</div>
-        <Button onClick={closeModal}>Close All Modal</Button>
-      </div>
-    </CustomDialog>
+    <div className="p-4 bg-white">
+      <div>CustomDialog</div>
+      <Button
+        onClick={() =>
+          openModal(<MyModal />, {
+            id: "ree",
+            onClose: () => {
+              closeModal(["ree", "qwe"]);
+              console.log("모달이 닫혔습니다.3");
+            },
+          })
+        }
+      >
+        My Modal
+      </Button>
+      <Button onClick={() => closeModal()}>Close All Modal</Button>
+    </div>
   );
 };
 
 const BasicPage = () => {
-  const { openModal, closeModal } = useCustomModal();
+  const { openModal, closeModal } = useModal();
   const handleOpenModal = () => {
     openModal(
-      <CustomModal>
-        <div className="p-4 bg-white">
-          <div>모달입니다</div>
-          <div className="flex gap-1">
-            <Button onClick={() => openModal(<NestMdoal />)}>Open Modal</Button>
-            <Button onClick={closeModal}>Close Modal</Button>
-          </div>
+      <div className="p-4 bg-white">
+        <div>모달입니다</div>
+        <div className="flex gap-1">
+          <Button
+            onClick={() => {
+              console.log("????");
+              openModal(<NestMdoal />, {
+                id: "qwe",
+                onClose: () => console.log("모달이 닫혔습니다.2"),
+              });
+            }}
+          >
+            Open Modal
+          </Button>
+          <Button
+            onClick={() => {
+              console.log("!@FDSF");
+              closeModal();
+            }}
+          >
+            Close Modal
+          </Button>
         </div>
-      </CustomModal>
+      </div>,
+      {
+        id: "asd",
+        onClose: () => console.log("모달이 닫혔습니다.1"),
+      }
     );
   };
   return (
@@ -40,3 +67,15 @@ const BasicPage = () => {
 };
 
 export default BasicPage;
+interface MyModalProps {
+  onClose?: () => void;
+}
+
+const MyModal = ({ onClose }: MyModalProps) => {
+  return (
+    <div className="p-4 bg-white">
+      <h2>모달 콘텐츠</h2>
+      <button onClick={onClose}>닫기</button>
+    </div>
+  );
+};
