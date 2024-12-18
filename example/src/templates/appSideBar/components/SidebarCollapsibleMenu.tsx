@@ -11,9 +11,9 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@shadcn/components/ui/sidebar";
-import { ArrowDown, ArrowUp, LucideProps } from "lucide-react";
+import { cn } from "@shadcn/lib/utils";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface SidebarCollapsibleMenuProps {
   categoryData: {
@@ -30,6 +30,8 @@ const SidebarCollapsibleMenu = ({
   subMenuData,
 }: SidebarCollapsibleMenuProps) => {
   const [open, setOpen] = useState<boolean>(true);
+  const { pathname } = useLocation();
+
   return (
     <SidebarMenu>
       <Collapsible
@@ -44,16 +46,36 @@ const SidebarCollapsibleMenu = ({
               <span className="inline-flex items-center gap-1 text-[16px]">
                 {<Icon name={categoryData.icon} size={16} />}{" "}
                 {categoryData.title}
-              </span>{" "}
-              {open ? <ArrowUp /> : <ArrowDown />}
+              </span>
+              {/* 메뉴 화살표 아이콘 */}
+              <Icon
+                name="ChevronRight"
+                // rotate 애니메이션
+                className={`${
+                  open ? "rotate-90" : "rotate-0"
+                } transition-transform`}
+              />
             </SidebarMenuButton>
           </CollapsibleTrigger>
           <CollapsibleContent>
             {subMenuData.map((submenu) => {
+              const isActive = () => {
+                if (submenu.url === "/") {
+                  return pathname === submenu.url;
+                } else {
+                  return pathname.includes(submenu.url);
+                }
+              };
               return (
-                <SidebarMenuSub>
+                <SidebarMenuSub key={submenu.title} className={``}>
                   <SidebarMenuSubItem>
-                    <Link to={submenu.url} className="text-[14px]">
+                    <Link
+                      to={submenu.url}
+                      className={cn(
+                        "flex text-[14px]",
+                        isActive() ? "text-zinc-900" : "text-zinc-400"
+                      )}
+                    >
                       {submenu.title}
                     </Link>
                   </SidebarMenuSubItem>

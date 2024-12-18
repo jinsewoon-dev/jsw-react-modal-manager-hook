@@ -1,12 +1,14 @@
+import { ModalProvider } from "@jsw/react-modal-manager-hook";
 import GlobalLayout from "@layouts/globalLayout/GlobalLayout";
-import "./App.css";
 import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <GlobalLayout>
-      <Outlet />
-    </GlobalLayout>
+    <ModalProvider>
+      <GlobalLayout>
+        <Outlet />
+      </GlobalLayout>
+    </ModalProvider>
   );
 }
 
