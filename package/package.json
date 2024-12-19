@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "dist/index.css"
+    "dist/BasicModalContainer.module.module.css"
   ],
   "exports": {
     ".": {
@@ -15,10 +15,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
-    "./index.css": "./dist/index.css"
+    "./BasicModalContainer.module.css": "./dist/BasicModalContainer.module.module.css"
   },
   "scripts": {
-    "build:css": "postcss src/**/*.css --dir dist --flatten",
+    "build:css": "postcss src/**/*.css --dir dist --no-map",
     "build:ts": "tsup",
     "build": "npm run build:css && npm run build:ts",
     "dev": "tsup --watch",

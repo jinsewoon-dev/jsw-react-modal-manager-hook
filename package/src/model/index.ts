@@ -31,7 +31,6 @@ export interface TModalManager<T = {}> {
   delayCloseModal: () => void;
   closeAllModals: () => void;
   delayCloseAllModal: () => void;
-  // delayCloseAllModal: (cleanupDelay: number) => void;
 }
 
 export type TModalDefaultConfig<T> = {

@@ -9,5 +9,8 @@
     "dev": "npm run dev -w example",
     "build": "npm run build -w package",
     "test": "npm run test -w package"
+  },
+  "dependencies": {
+    "build": "^0.1.4"
   }
 }

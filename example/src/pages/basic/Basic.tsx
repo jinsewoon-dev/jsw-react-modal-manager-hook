@@ -26,7 +26,8 @@ const NestMdoal = () => {
 };
 
 const BasicPage = () => {
-  const { openModal, closeModal } = useModal();
+  const { modals, openModal, closeModal } = useModal();
+  console.log(modals);
   const handleOpenModal = () => {
     openModal(
       <div className="p-4 bg-white">
@@ -46,7 +47,7 @@ const BasicPage = () => {
           <Button
             onClick={() => {
               console.log("!@FDSF");
-              closeModal();
+              closeModal("asd");
             }}
           >
             Close Modal
