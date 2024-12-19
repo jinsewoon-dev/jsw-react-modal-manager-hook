@@ -20,7 +20,7 @@ export const ModalProvider = ({
   cleanupDelay?: number; // 기본값 설정
 }) => {
   const { modals, openModal, closeModal, closeAllModals } = useModalManager(
-    cleanupDelay ?? 0
+    cleanupDelay ?? 300
   );
 
   return (
@@ -28,7 +28,6 @@ export const ModalProvider = ({
       value={{ modals, openModal, closeModal, closeAllModals }}
     >
       {customModalContainer ?? <BasicModalContainer />}
-
       {children}
     </ModalContext.Provider>
   );

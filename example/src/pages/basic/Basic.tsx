@@ -3,7 +3,7 @@ import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
 
 const NestMdoal = () => {
-  const { openModal, closeModal, closeAllModals } = useModal();
+  const { openModal, closeModal } = useModal();
   return (
     <div className="p-4 bg-white">
       <div>CustomDialog</div>
@@ -46,7 +46,6 @@ const BasicPage = () => {
           </Button>
           <Button
             onClick={() => {
-              console.log("!@FDSF");
               closeModal("asd");
             }}
           >

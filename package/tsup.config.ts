@@ -10,12 +10,10 @@ export default defineConfig({
   external: ["react"], // React를 외부 의존성으로 처리
   outDir: "dist", // 출력 디렉토리 설정
   loader: {
-    // ".css": "file", // CSS 파일을 개별적으로 처리
     ".css": "copy",
   },
   esbuildOptions(options) {
     options.outdir = "dist"; // 출력 디렉토리 명시
-    // options.entryNames = "[name]".replace(/\.module$/, ""); // 파일 이름 유지
     options.assetNames = "[name]";
   },
   outExtension: ({ format }) => ({
