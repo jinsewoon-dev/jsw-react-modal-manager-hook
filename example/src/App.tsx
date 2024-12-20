@@ -9,7 +9,13 @@ function App() {
     //   customModalContainer={<CustomModalContainer />}
     //   cleanupDelay={300}
     // >
-    <ModalProvider>
+    <ModalProvider
+      initialConfig={{
+        cleanupDelay: 300,
+        baseZindex: 20000,
+        dimBackgroundColor: "rgba(0,0,0,0.7)",
+      }}
+    >
       <GlobalLayout>
         <Outlet />
       </GlobalLayout>

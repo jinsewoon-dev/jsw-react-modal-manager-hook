@@ -1,48 +1,39 @@
-// 라이브러리 내부: 기본 설정
-export type TBaseModalConfig = {
-  useDim?: boolean;
-  allowDimClickClose?: boolean;
-  allowBackgroundScroll?: boolean;
-};
+import { CSSProperties } from "react";
 
-// 제네릭으로 사용자 정의 확장 가능
-export type TModalConfig<T = {}> = TBaseModalConfig & T;
-
-export type TModalLayoutState = {
-  id: string;
-  index: number;
-};
-export type TModalObject<T = unknown> = {
-  content: React.ReactNode;
-  config?: TModalConfig<T>;
-  state: TModalLayoutState;
-  isVisible: boolean;
-};
-/**삭제예정 */
-export type TModalState = {
-  content: React.ReactNode;
-  config?: TModalConfig;
-};
-
-export interface TModalManager<T = {}> {
-  modals: TModalObject<T>[];
-  openModal: (modal: TModalObject<T>) => void;
-  closeModal: () => void;
-  delayCloseModal: () => void;
-  closeAllModals: () => void;
-  delayCloseAllModal: () => void;
-}
-
-export type TModalDefaultConfig<T> = {
+export type ModalProviderConfig = {
   baseZindex?: number;
-  customDimColor?: React.CSSProperties["backgroundColor"];
-  className?: string;
-  initialStyle?: React.CSSProperties;
-  cleanupDelay?: number;
-} & Required<TModalConfig<T>>;
+  dimBackgroundColor?: CSSProperties["backgroundColor"];
+  cleanupDelay?: number; // 기본값 설정
+};
 
-export interface ModalayoutProps<T> {
-  children?: React.ReactNode;
-  state?: TModalLayoutState;
-  defaultConfig?: TModalDefaultConfig<T>;
+export type BaseModalConfig = {
+  useDim: boolean;
+  allowDimClickClose: boolean;
+  allowBackgroundScroll: boolean;
+};
+
+export type ModalStateConfing = ModalProviderConfig & Partial<BaseModalConfig>;
+
+export type OpenModalOptions = {
+  onClose?: () => void; // 모달 닫힘 시 실행할 콜백
+} & Partial<BaseModalConfig>;
+
+export type ModalState = {
+  id: string; // 모달 고유 ID
+  component: React.ReactNode; // 렌더링할 컴포넌트
+  isVisible: boolean; // 현재 보이는 상태
+  config: Partial<BaseModalConfig>;
+  onClose?: () => void; // 닫힘 핸들러 (옵션)
+};
+
+export type ModalManagerState = ModalState[];
+
+export interface ModalManagerInterface {
+  modals: ModalManagerState;
+  openModal: (
+    component: ModalState["component"],
+    options?: OpenModalOptions
+  ) => void;
+  closeModal: (id?: string | string[]) => void;
+  closeAllModals: () => void;
 }

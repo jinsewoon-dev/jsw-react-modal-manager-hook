@@ -1,33 +1,58 @@
-import React, { createContext } from "react";
+import React, { createContext, CSSProperties } from "react";
 
 import { useContext } from "react";
-import {
-  ModalManagerInterface,
-  useModalManager,
-} from "../hooks/useModalManager";
+import { useModalManager } from "../hooks/useModalManager";
 import { BasicModalContainer } from "../layouts/BasicModalContainer";
+import { ModalManagerInterface, ModalStateConfing } from "../model";
 
 // Context 생성
 const ModalContext = createContext<any>(null);
+export type ModalProviderProps = {
+  children: React.ReactNode;
+  customModalContainer?: React.ReactNode;
+  initialConfig?: ModalStateConfing;
+};
+export const INITIAL_MODAL_CONFIG = {
+  baseZindex: 10000,
+  useDim: true,
+  allowDimClickClose: true,
+  allowBackgroundScroll: true,
+  dimBackgroundColor: "rgba(0,0,0,0.5)",
+  cleanupDelay: 300,
+};
 
 export const ModalProvider = ({
   children,
   customModalContainer,
-  cleanupDelay, // 기본 delay 값을 prop으로 받음
-}: {
-  children: React.ReactNode;
-  customModalContainer?: React.ReactNode;
-  cleanupDelay?: number; // 기본값 설정
-}) => {
+  initialConfig = INITIAL_MODAL_CONFIG,
+}: ModalProviderProps) => {
   const { modals, openModal, closeModal, closeAllModals } = useModalManager(
-    cleanupDelay ?? 300
+    initialConfig.cleanupDelay ?? INITIAL_MODAL_CONFIG.cleanupDelay
   );
 
+  console.log({ cleanupDelay: initialConfig.cleanupDelay });
   return (
     <ModalContext.Provider
       value={{ modals, openModal, closeModal, closeAllModals }}
     >
-      {customModalContainer ?? <BasicModalContainer />}
+      {customModalContainer ?? (
+        <BasicModalContainer
+          initialConfig={{
+            useDim: initialConfig.useDim ?? INITIAL_MODAL_CONFIG.useDim,
+            allowDimClickClose:
+              initialConfig.allowDimClickClose ??
+              INITIAL_MODAL_CONFIG.allowDimClickClose,
+            allowBackgroundScroll:
+              initialConfig.allowBackgroundScroll ??
+              INITIAL_MODAL_CONFIG.allowBackgroundScroll,
+            dimBackgroundColor:
+              initialConfig.dimBackgroundColor ??
+              INITIAL_MODAL_CONFIG.dimBackgroundColor,
+            baseZindex:
+              initialConfig.baseZindex ?? INITIAL_MODAL_CONFIG.baseZindex,
+          }}
+        />
+      )}
       {children}
     </ModalContext.Provider>
   );

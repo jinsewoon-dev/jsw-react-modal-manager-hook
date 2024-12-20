@@ -10,9 +10,8 @@ const NestMdoal = () => {
       <Button
         onClick={() =>
           openModal(<MyModal />, {
-            id: "ree",
             onClose: () => {
-              closeModal(["ree", "qwe"]);
+              closeModal();
               console.log("모달이 닫혔습니다.3");
             },
           })
@@ -37,7 +36,6 @@ const BasicPage = () => {
             onClick={() => {
               console.log("????");
               openModal(<NestMdoal />, {
-                id: "qwe",
                 onClose: () => console.log("모달이 닫혔습니다.2"),
               });
             }}
@@ -46,7 +44,7 @@ const BasicPage = () => {
           </Button>
           <Button
             onClick={() => {
-              closeModal("asd");
+              closeModal();
             }}
           >
             Close Modal
@@ -54,7 +52,6 @@ const BasicPage = () => {
         </div>
       </div>,
       {
-        id: "asd",
         onClose: () => console.log("모달이 닫혔습니다.1"),
       }
     );

@@ -1,8 +1,19 @@
+import { CSSProperties, useEffect } from "react";
 import { useModal } from "../context/ModalProvider";
 import styles from "./BasicModalContainer.module.css";
+import { logError } from "../lib/logError";
+import { BaseModalConfig } from "../model";
 
-interface BasicModalContainerProps {}
-export const BasicModalContainer = () => {
+interface BasicModalContainerProps {
+  initialConfig: BaseModalConfig & {
+    baseZindex: number; // 필수로 변경
+    dimBackgroundColor: CSSProperties["backgroundColor"];
+  };
+}
+
+export const BasicModalContainer = ({
+  initialConfig,
+}: BasicModalContainerProps) => {
   const { modals, closeModal } = useModal();
 
   return (
@@ -17,14 +28,24 @@ export const BasicModalContainer = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            zIndex: 10000 + index,
+            backgroundColor: modal.config.useDim
+              ? initialConfig.dimBackgroundColor
+              : "transparent",
+            zIndex: initialConfig.baseZindex + index,
             pointerEvents: modal.isVisible ? "auto" : "none", // 닫히는 동안 클릭 차단
           }}
-          onClick={() => closeModal(modal.id)} // 오버레이 클릭 시 모달 닫기
+          onClick={(e) =>
+            // 오버레이 클릭 시 모달 닫기
+            // modal.config.allowDimClickClose ?? initialConfig.allowDimClickClose
+            //   ? closeModal()
+            //   : e.preventDefault()
+            closeModal(modal.id)
+          }
         >
           <div
-            className="modal-content"
+            style={{
+              pointerEvents: modal.isVisible ? "auto" : "none",
+            }}
             onClick={(e) => e.stopPropagation()} // 클릭 이벤트 버블링 방지
           >
             {modal.component}
