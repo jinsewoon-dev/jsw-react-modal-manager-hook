@@ -7,7 +7,9 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "dist/BasicModalContainer.module.module.css"
+    "dist/BasicModalContainer.module.module.css",
+    "README.md",
+    "LICENSE"
   ],
   "exports": {
     ".": {
