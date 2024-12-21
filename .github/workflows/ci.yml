@@ -61,10 +61,6 @@ jobs:
         run: |
           cp README.md LICENSE ./package/
 
-      # 5. 빌드 결과 dist를 package로 복사
-      - name: Copy dist to package
-        run: cp -r ./dist ./package/
-
   # NPM 배포 작업
   publish:
     needs: build
