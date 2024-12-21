@@ -38,10 +38,9 @@ jobs:
       - name: Install dependencies and run tests
         working-directory: ./package # package 폴더에서 실행
         run: |
-          npm install -g npm@latest # 최신 NPM 버전으로 업데이트
-          npm install --legacy-peer-deps # 의존성 충돌 방지 모드로 설치
-          npm install rollup # Rollup 의존성을 명시적으로 설치
-          npm test # 테스트 실행
+          npm install -g npm@latest
+          npm install --legacy-peer-deps
+          npm test
 
   # 2. 빌드 작업
   build:
