@@ -22,7 +22,8 @@
     "build:ts": "tsup",
     "build": "npm run build:css && npm run build:ts",
     "dev": "tsup --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
