@@ -30,7 +30,6 @@ export const ModalProvider = ({
     initialConfig.cleanupDelay ?? INITIAL_MODAL_CONFIG.cleanupDelay
   );
 
-  console.log({ cleanupDelay: initialConfig.cleanupDelay });
   return (
     <ModalContext.Provider
       value={{ modals, openModal, closeModal, closeAllModals }}
