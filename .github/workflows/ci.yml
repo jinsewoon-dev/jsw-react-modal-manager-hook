@@ -1,95 +1,75 @@
-# GitHub Actions 워크플로 설정 파일
-
-# 워크플로 이름
 name: CI
 
-# 워크플로 실행 조건
 on:
-  push: # push 이벤트 발생 시
+  push:
     branches:
-      - main # main 브랜치로 푸시될 때 실행
+      - main
     tags:
-      - "v*" # "v"로 시작하는 태그가 푸시될 때 실행
-  pull_request: # PR(Pull Request) 이벤트 발생 시
+      - "v*"
+  pull_request:
     branches:
-      - main # main 브랜치로 PR이 생성되거나 업데이트될 때 실행
+      - main
 
-# 워크플로의 작업(Jobs)을 정의
 jobs:
-  # 1. 테스트 작업
   test:
-    # Ubuntu 환경에서 실행
     runs-on: ubuntu-latest
 
-    # 작업 단계(Steps)
     steps:
-      # 1-1. GitHub 저장소에서 코드를 가져옵니다.
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 1-2. Node.js 환경 설정
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20 # Node.js 20 버전을 사용
-          cache: "npm" # NPM 캐시를 사용해 의존성 설치 속도 향상
+          node-version: 20
+          cache: "npm"
           cache-dependency-path: ./package/package-lock.json
 
-      # 1-3. 의존성 설치 및 테스트 실행
       - name: Install dependencies and run tests
-        working-directory: ./package # package 폴더에서 실행
+        working-directory: ./package
         run: |
           npm install -g npm@latest
           npm install --legacy-peer-deps
+          npm install --save-dev @testing-library/dom
           npm test
 
-  # 2. 빌드 작업
   build:
-    # 테스트 작업이 성공해야 실행
     needs: test
     runs-on: ubuntu-latest
 
     steps:
-      # 2-1. GitHub 저장소에서 코드를 가져옵니다.
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2-2. Node.js 환경 설정
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20 # Node.js 20 버전을 사용
+          node-version: 20
           cache: "npm"
           cache-dependency-path: ./package/package-lock.json
 
-      # 2-3. 의존성 설치 및 빌드 실행
       - name: Build the package
-        working-directory: ./package # package 폴더에서 실행
+        working-directory: ./package
         run: |
           npm install
           npm run build
 
-  # 3. NPM 배포 작업
   publish:
-    # 빌드 작업이 성공해야 실행
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      # 3-1. GitHub 저장소에서 코드를 가져옵니다.
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 3-2. Node.js 환경 설정
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20 # Node.js 20 버전을 사용
+          node-version: 20
           cache: "npm"
 
-      # 3-3. NPM 배포 실행
       - name: Publish to NPM
-        working-directory: ./package # package 폴더에서 실행
-        run: npm publish # NPM으로 라이브러리 배포
+        working-directory: ./package
+        run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # NPM 인증 토큰
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
