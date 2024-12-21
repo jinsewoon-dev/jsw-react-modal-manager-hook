@@ -1,4 +1,4 @@
-import { useModal } from "@jsw/react-modal-manager-hook";
+import { useModal } from "jsw-react-modal-manager-hook";
 import { AnimatePresence, motion } from "motion/react";
 const CustomModalContainer = () => {
   const { modals, closeModal } = useModal();
@@ -23,7 +23,7 @@ const CustomModalContainer = () => {
                 backgroundColor: "rgba(0,0,0,0.5)",
                 zIndex: 10000 + index,
               }}
-              onClick={() => closeModal(modal.id)}
+              onClick={closeModal}
             >
               <div
                 className="modal-content"
