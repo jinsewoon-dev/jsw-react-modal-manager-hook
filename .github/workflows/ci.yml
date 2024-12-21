@@ -84,7 +84,7 @@ jobs:
 
       - name: Build package
         run: |
-          cd example
+          cd package
           npm run build
 
       # 4. 루트의 README.md 및 LICENSE 파일 복사
