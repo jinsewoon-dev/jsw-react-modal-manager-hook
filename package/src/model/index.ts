@@ -34,6 +34,6 @@ export interface ModalManagerInterface {
     component: ModalState["component"],
     options?: OpenModalOptions
   ) => void;
-  closeModal: (id?: string | string[]) => void;
+  closeModal: () => void;
   closeAllModals: () => void;
 }

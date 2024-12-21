@@ -1,12 +1,11 @@
-import { CSSProperties, useEffect } from "react";
+import { CSSProperties } from "react";
 import { useModal } from "../context/ModalProvider";
 import styles from "./BasicModalContainer.module.css";
-import { logError } from "../lib/logError";
 import { BaseModalConfig } from "../model";
 
 interface BasicModalContainerProps {
   initialConfig: BaseModalConfig & {
-    baseZindex: number; // 필수로 변경
+    baseZindex: number;
     dimBackgroundColor: CSSProperties["backgroundColor"];
   };
 }
@@ -35,11 +34,10 @@ export const BasicModalContainer = ({
             pointerEvents: modal.isVisible ? "auto" : "none", // 닫히는 동안 클릭 차단
           }}
           onClick={(e) =>
-            // 오버레이 클릭 시 모달 닫기
-            // modal.config.allowDimClickClose ?? initialConfig.allowDimClickClose
-            //   ? closeModal()
-            //   : e.preventDefault()
-            closeModal(modal.id)
+            //조건부 오버레이 클릭 시 모달 닫기
+            modal.config.allowDimClickClose ?? initialConfig.allowDimClickClose
+              ? closeModal()
+              : e.preventDefault()
           }
         >
           <div
