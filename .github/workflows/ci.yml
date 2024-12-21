@@ -54,7 +54,13 @@ jobs:
         run: |
           rm -rf node_modules # 기존 의존성 제거
           npm install --no-package-lock # lock 파일 생성 없이 설치
-          npm run build
+          npm run build || exit 1 # 빌드 실패 시 종료
+          ls -la ./dist # 빌드 후 dist 폴더 확인npm run build
+
+      # 4. Debug 전체 package 디렉토리
+      - name: Debug package contents
+        working-directory: ./package
+        run: ls -la
 
       # 4. 루트의 README.md 및 LICENSE 파일 복사
       - name: Copy root files to package
@@ -87,9 +93,9 @@ jobs:
         run: |
           cp README.md LICENSE ./package/
 
-      - name: Verify dist folder
-        working-directory: ./package
-        run: ls -la ./dist
+      # - name: Verify dist folder
+      #   working-directory: ./package
+      #   run: ls -la ./dist
 
       # # 5. 빌드 결과 dist를 package로 복사
       # - name: Copy dist to package
