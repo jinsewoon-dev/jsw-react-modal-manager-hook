@@ -6,14 +6,11 @@ on:
       - main # main 브랜치에 푸시될 때 실행
     tags:
       - "v*" # v로 시작하는 태그 푸시 시 트리거
-  pull_request: # PR 생성 또는 업데이트 시 실행
+  pull_request:
     branches:
       - main # main 브랜치로 PR이 열리거나 업데이트될 때 트리거
-    tags:
-      - "v*" # v로 시작하는 태그 푸시 시 트리거
 
 jobs:
-  # 테스트 작업
   test:
     runs-on: ubuntu-latest
     steps:
@@ -28,55 +25,46 @@ jobs:
           node-version: 20
           cache: "npm"
 
-      # 3. `package` 디렉토리로 이동하여 의존성 설치 및 테스트 실행
-      - name: Install dependencies and run tests
+      # 3. Node Modules 캐싱
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 4. 패키지 정리 및 설치
+      - name: Clean Install Dependencies
         working-directory: ./package
         run: |
+          rm -rf node_modules package-lock.json
           npm install
-          npm test
 
-  # 빌드 작업
+      # 5. 테스트 실행
+      - name: Run tests
+        working-directory: ./package
+        run: npm test
+
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      # 1. GitHub 저장소 체크아웃
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Node.js 설정
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-
-      # 3. `package` 디렉토리로 이동하여 의존성 설치 및 빌드 실행
-      - name: Build the package
-        working-directory: ./package
-        run: |
-          npm install
-          npm run build
-
-  # NPM 배포 작업
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      # 1. GitHub 저장소 체크아웃
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2. Node.js 설정
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: "npm"
 
-      # 3. `package` 디렉토리로 이동하여 NPM 배포
-      - name: Publish to NPM
+      - name: Install dependencies
         working-directory: ./package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: Build the package
+        working-directory: ./package
+        run: npm run build
