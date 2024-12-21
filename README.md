@@ -3,26 +3,13 @@
 | -- | :--: | -- | -- | :--: |
  -->
 
-[useSyncExternalStore]: (https://ko.react.dev/reference/react/useSyncExternalStore)
+<!-- [useSyncExternalStore]: (https://ko.react.dev/reference/react/useSyncExternalStore) -->
 
-# @jsw/react-modal-manager-hook
+# @jinsewoon/react-modal-manager-hook
 
-React 애플리케이션에서 동적 모달 관리를 간단하게 구현할 수 있도록 설계된 커스텀 훅입니다. 배열 상태로 모달을 관리하며, 다중 모달을 처리할 수 있도록 설계되어 동일한 모달을 중복 렌더링하거나 여러 모달을 동시에 띄우는 것이 가능합니다. 가장 최근에 추가된 모달은 항상 최상단에 표시되며, 단일 모달 닫기와 모든 모달 초기화 기능을 제공합니다. 스타일과 UI는 완전히 커스터마이징할 수 있어 다양한 요구 사항에 유연하게 대응할 수 있습니다.
+React 애플리케이션에서 동적 모달 관리를 간단하게 구현할 수 있도록 설계된 커스텀 훅입니다. 배열 상태로 모달을 관리하며, 다중 모달을 처리할 수 있도록 설계되어 동일한 모달을 중복 렌더링하거나 여러 모달을 동시에 띄우는 것이 가능합니다. 가장 최근에 추가된 모달은 항상 최상단에 표시되며, 단일 모달 닫기와 모든 모달 초기화 기능을 제공합니다.
 
 ## 이 라이브러리의 특징 🚀
-
-### **1. 독립적인 전역 상태 관리**
-
-내부 Store 클래스를 통해 외부 라이브러리에 의존하지 않고도 <span style="color:#0056b3;background-color:#f0f7ff;padding:2px 6px;border-radius:4px; font-weight:700">Redux, Zustand와 유사한 전역 상태 관리 구조를 구현</span>합니다.
-
-### **2. React 최적화 및 SSR 지원**
-
-React 18+의 [useSyncExternalStore]를 사용해 상태 구독과 <span style="color:#0056b3;background-color:#f0f7ff;padding:2px 6px;border-radius:4px; font-weight:700">서버 사이드 렌더링(SSR)</span>을 안정적으로 지원합니다.
-
-### **3. 유연한 확장성과 커스터마이징**
-
-`제네릭 타입(TModalConfig)`을 활용하여 다양한 **모달 설정을 유연하게 정의**할 수 있으며,
-`openModal`, `closeModal`, `closeAllModal` 메서드를 통해 직관적이고 간편하게 모달을 제어할 수 있습니다.
 
 ## 1.ModalProvider
 
@@ -42,10 +29,9 @@ createRoot(document.getElementById("root")!).render(
 );
 ```
 
-| Props                  | 필수여부 | 타입              | 설명                                                          | 초기값 |
-| ---------------------- | :------: | ----------------- | ------------------------------------------------------------- | :----: |
-| `children`             |   필수   | `React.ReactNode` | ModalProvider 하위에 렌더링될 React 컴포넌트                  |  없음  |
-| `customModalContainer` |   선택   | `React.ReactNode` | 기본 ModalContainer 대신 사용할 커스텀 모달 컨테이너 컴포넌트 |  없음  |
+| Props      | 필수여부 | 타입              | 설명                                         | 초기값 |
+| ---------- | :------: | ----------------- | -------------------------------------------- | :----: |
+| `children` |   필수   | `React.ReactNode` | ModalProvider 하위에 렌더링될 React 컴포넌트 |  없음  |
 
 #### customModalContainer 사용 예시
 
