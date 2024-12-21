@@ -56,11 +56,6 @@ jobs:
           npm install --no-package-lock # lock 파일 생성 없이 설치
           npm run build
 
-      # 4. 루트의 README.md 및 LICENSE 파일 복사
-      - name: Copy root files to package
-        run: |
-          cp README.md LICENSE ./package/
-
   # NPM 배포 작업
   publish:
     needs: build
@@ -81,6 +76,11 @@ jobs:
         run: |
           echo "registry=https://registry.npmjs.org/" > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
+      # 4. 루트의 README.md 및 LICENSE 파일 복사
+      - name: Copy root files to package
+        run: |
+          cp README.md LICENSE ./package/
 
       # 6. NPM 배포 실행
       - name: Publish to NPM
