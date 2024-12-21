@@ -71,7 +71,13 @@ jobs:
         with:
           node-version: 20
 
-      # 3. `package` 디렉토리로 이동하여 NPM 배포
+      # 3. .npmrc 파일 생성 (토큰 설정)
+      - name: Create .npmrc
+        run: |
+          echo "registry=https://registry.npmjs.org/" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
+      # 4. NPM 배포 실행
       - name: Publish to NPM
         working-directory: ./package
         run: npm publish --access public
