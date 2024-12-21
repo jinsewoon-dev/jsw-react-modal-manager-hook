@@ -1,7 +1,7 @@
-import { ModalProvider } from "jsw-react-modal-manager-hook";
+import { ModalProvider } from "@jinsewoon/react-modal-manager-hook";
 import GlobalLayout from "@layouts/globalLayout/GlobalLayout";
 import { Outlet } from "react-router-dom";
-import "jsw-react-modal-manager-hook/BasicModalContainer.module.css"; // CSS 파일 import
+import "@jinsewoon/react-modal-manager-hook/BasicModalContainer.module.css"; // CSS 파일 import
 function App() {
   return (
     <ModalProvider

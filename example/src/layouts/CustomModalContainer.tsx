@@ -1,4 +1,4 @@
-import { useModal } from "jsw-react-modal-manager-hook";
+import { useModal } from "@jinsewoon/react-modal-manager-hook";
 import { AnimatePresence, motion } from "motion/react";
 const CustomModalContainer = () => {
   const { modals, closeModal } = useModal();

@@ -1,4 +1,4 @@
-import { useModal } from "jsw-react-modal-manager-hook";
+import { useModal } from "@jinsewoon/react-modal-manager-hook";
 import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
 
