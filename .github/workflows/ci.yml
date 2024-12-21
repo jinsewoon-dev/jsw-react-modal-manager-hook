@@ -15,32 +15,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 저장소 코드 가져오기
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Node.js 설정 및 캐시 활성화
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: "npm"
-          cache-dependency-path: ./package/package-lock.json
+          node-version: 20 # Node.js 최신 버전
+          cache: "npm" # NPM 캐시 활성화
+          cache-dependency-path: ./package/package-lock.json # package 디렉토리의 package-lock.json 참조
 
+      # 3. 의존성 설치 및 테스트 실행
       - name: Install dependencies and run tests
-        working-directory: ./package
+        working-directory: ./package # 모노레포에서 `package` 디렉토리로 이동
         run: |
-          npm install -g npm@latest
           npm install --legacy-peer-deps
-          npm install --save-dev @testing-library/dom
           npm test
 
   build:
+    # `test` 작업 후 실행
     needs: test
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 저장소 코드 가져오기
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Node.js 설정 및 캐시 활성화
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -48,28 +52,34 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./package/package-lock.json
 
+      # 3. 의존성 설치 및 빌드 실행
       - name: Build the package
         working-directory: ./package
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
   publish:
+    # `build` 작업 후 실행
     needs: build
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 저장소 코드 가져오기
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2. Node.js 설정 및 캐시 활성화
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: "npm"
+          cache-dependency-path: ./package/package-lock.json
 
+      # 3. NPM 배포
       - name: Publish to NPM
         working-directory: ./package
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # GitHub Secrets에 저장된 NPM 토큰
