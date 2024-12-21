@@ -4,7 +4,7 @@ import {
   ModalManagerInterface,
   ModalManagerState,
   OpenModalOptions,
-} from "../model";
+} from "../types";
 import { INITIAL_MODAL_CONFIG } from "../context/ModalProvider";
 
 /**

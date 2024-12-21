@@ -3,7 +3,7 @@ import React, { createContext, CSSProperties } from "react";
 import { useContext } from "react";
 import { useModalManager } from "../hooks/useModalManager";
 import { BasicModalContainer } from "../layouts/BasicModalContainer";
-import { ModalManagerInterface, ModalStateConfing } from "../model";
+import { ModalManagerInterface, ModalStateConfing } from "../types";
 
 // Context 생성
 const ModalContext = createContext<any>(null);

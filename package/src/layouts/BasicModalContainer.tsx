@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { useModal } from "../context/ModalProvider";
 import styles from "./BasicModalContainer.module.css";
-import { BaseModalConfig } from "../model";
+import { BaseModalConfig } from "../types";
 
 interface BasicModalContainerProps {
   initialConfig: BaseModalConfig & {
