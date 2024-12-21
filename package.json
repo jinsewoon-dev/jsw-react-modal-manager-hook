@@ -8,6 +8,10 @@
   "scripts": {
     "dev": "npm run dev -w example",
     "build": "npm run build -w package",
-    "test": "npm run test -w package"
+    "test": "npm run test -w package",
+    "test:coverage": "npx vitest run --coverage -w package"
+  },
+  "dependencies": {
+    "build": "^0.1.4"
   }
 }

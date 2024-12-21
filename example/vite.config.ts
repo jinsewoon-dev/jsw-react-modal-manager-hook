@@ -18,6 +18,12 @@ export default defineConfig({
       "@stores": path.resolve(__dirname, "./src/stores"),
       "@styles": path.resolve(__dirname, "./src/styles"),
       "@constants": path.resolve(__dirname, "./src/constants"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+    },
+  },
+  css: {
+    modules: {
+      localsConvention: "camelCaseOnly", // CSS 모듈 네이밍 방식
     },
   },
 });

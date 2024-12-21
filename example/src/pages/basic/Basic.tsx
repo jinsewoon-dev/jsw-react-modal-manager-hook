@@ -1,5 +1,78 @@
+import { useModal } from "@jsw/react-modal-manager-hook";
+import PageLayout from "@layouts/pageLayout/PageLayout";
+import { Button } from "@shadcn/components/ui/button";
+
+const NestMdoal = () => {
+  const { openModal, closeModal } = useModal();
+  return (
+    <div className="p-4 bg-white">
+      <div>CustomDialog</div>
+      <Button
+        onClick={() =>
+          openModal(<MyModal />, {
+            onClose: () => {
+              closeModal();
+              console.log("모달이 닫혔습니다.3");
+            },
+          })
+        }
+      >
+        My Modal
+      </Button>
+      <Button onClick={() => closeModal()}>Close All Modal</Button>
+    </div>
+  );
+};
+
 const BasicPage = () => {
-  return <>BasicPage</>;
+  const { modals, openModal, closeModal } = useModal();
+  console.log(modals);
+  const handleOpenModal = () => {
+    openModal(
+      <div className="p-4 bg-white">
+        <div>모달입니다</div>
+        <div className="flex gap-1">
+          <Button
+            onClick={() => {
+              console.log("????");
+              openModal(<NestMdoal />, {
+                onClose: () => console.log("모달이 닫혔습니다.2"),
+              });
+            }}
+          >
+            Open Modal
+          </Button>
+          <Button
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            Close Modal
+          </Button>
+        </div>
+      </div>,
+      {
+        onClose: () => console.log("모달이 닫혔습니다.1"),
+      }
+    );
+  };
+  return (
+    <PageLayout>
+      <Button onClick={handleOpenModal}>오픈</Button>
+    </PageLayout>
+  );
 };
 
 export default BasicPage;
+interface MyModalProps {
+  onClose?: () => void;
+}
+
+const MyModal = ({ onClose }: MyModalProps) => {
+  return (
+    <div className="p-4 bg-white">
+      <h2>모달 콘텐츠</h2>
+      <button onClick={onClose}>닫기</button>
+    </div>
+  );
+};
