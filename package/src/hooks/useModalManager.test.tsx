@@ -1,59 +1,80 @@
-import { render } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
-import { ModalProvider, useModal } from "../context/ModalProvider";
+import { renderHook, act, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { useModalManager } from "./useModalManager";
 
-describe("ModalProvider와 useModal", () => {
-  it("ModalProvider가 Context를 올바르게 제공해야 한다", () => {
-    let contextValues: ReturnType<typeof useModal> | undefined;
+describe("useModalManager", () => {
+  it("기본 상태를 반환한다", () => {
+    const { result } = renderHook(() => useModalManager());
 
-    const TestComponent = () => {
-      contextValues = useModal(); // Context 값 저장
-      return <div>Test Component</div>;
-    };
-
-    render(
-      <ModalProvider>
-        <TestComponent />
-      </ModalProvider>
-    );
-
-    expect(contextValues).toHaveProperty("modals");
-    expect(contextValues).toHaveProperty("openModal");
-    expect(contextValues).toHaveProperty("closeModal");
-    expect(contextValues).toHaveProperty("closeAllModals");
-    expect(contextValues?.modals).toEqual([]); // 초기값 확인
+    expect(result.current.modals).toEqual([]);
+    expect(result.current.openModal).toBeInstanceOf(Function);
+    expect(result.current.closeModal).toBeInstanceOf(Function);
+    expect(result.current.closeAllModals).toBeInstanceOf(Function);
   });
 
-  it("openModal과 closeModal이 모달 상태를 업데이트한다", () => {
-    let modalManager: ReturnType<typeof useModal> | undefined;
+  it("openModal 호출 시 모달을 추가한다", async () => {
+    const { result } = renderHook(() => useModalManager());
 
-    const TestComponent = () => {
-      modalManager = useModal();
-      return null;
-    };
+    await waitFor(() => {
+      result.current.openModal(<div>Test Modal</div>);
+    });
 
-    render(
-      <ModalProvider>
-        <TestComponent />
-      </ModalProvider>
-    );
-
-    expect(modalManager?.modals).toHaveLength(0);
-
-    modalManager?.openModal(<div>Test Modal</div>);
-    expect(modalManager?.modals).toHaveLength(1);
-
-    modalManager?.closeModal();
-    expect(modalManager?.modals).toHaveLength(0);
+    expect(result.current.modals).toHaveLength(1);
+    expect(result.current.modals[0]).toMatchObject({
+      component: expect.any(Object), // ReactNode
+      isVisible: true,
+    });
   });
 
-  it("모달이 children과 함께 렌더링되어야 한다", () => {
-    const { container } = render(
-      <ModalProvider>
-        <div>Children Content</div>
-      </ModalProvider>
-    );
+  it("closeModal 호출 시 마지막 모달을 닫는다", async () => {
+    const { result } = renderHook(() => useModalManager(300)); // 300ms 딜레이 설정
 
-    expect(container).toHaveTextContent("Children Content");
+    result.current.openModal(<div>First Modal</div>);
+    result.current.openModal(<div>Second Modal</div>);
+
+    await waitFor(() => {
+      expect(result.current.modals).toHaveLength(2);
+    });
+
+    result.current.closeModal();
+
+    await waitFor(() => {
+      expect(result.current.modals[1].isVisible).toBe(false);
+    });
+
+    // 300ms 후 모달이 제거되었는지 확인
+    await waitFor(
+      () => {
+        expect(result.current.modals).toHaveLength(1);
+      },
+      { timeout: 300 }
+    );
+  });
+
+  it("closeAllModals 호출 시 모든 모달을 닫는다", async () => {
+    const { result } = renderHook(() => useModalManager(300));
+
+    result.current.openModal(<div>First Modal</div>);
+    result.current.openModal(<div>Second Modal</div>);
+
+    await waitFor(() => {
+      expect(result.current.modals).toHaveLength(2);
+    });
+
+    result.current.closeAllModals();
+
+    await waitFor(() => {
+      result.current.modals.forEach((modal) => {
+        expect(modal.isVisible).toBe(false);
+      });
+    });
+
+    // 300ms 후 모든 모달이 제거되었는지 확인
+    await waitFor(
+      () => {
+        expect(result.current.modals).toHaveLength(0);
+      },
+      { timeout: 300 }
+    );
   });
 });
