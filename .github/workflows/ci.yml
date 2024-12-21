@@ -60,7 +60,10 @@ jobs:
       - name: Copy root files to package
         run: |
           cp README.md LICENSE ./package/
-          cp -r ./dist ./package/
+
+      # 5. 빌드 결과 dist를 package로 복사
+      - name: Copy dist to package
+        run: cp -r ./dist ./package/
 
   # NPM 배포 작업
   publish:
@@ -88,7 +91,11 @@ jobs:
         run: |
           cp README.md LICENSE ./package/
 
-      # 5. NPM 배포 실행
+      # 5. 빌드 결과 dist를 package로 복사
+      - name: Copy dist to package
+        run: cp -r ./dist ./package/
+
+      # 6. NPM 배포 실행
       - name: Publish to NPM
         working-directory: ./package
         run: npm publish --access public
