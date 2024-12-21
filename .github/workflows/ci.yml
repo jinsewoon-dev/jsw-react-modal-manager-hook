@@ -25,6 +25,10 @@ jobs:
         with:
           node-version: 20
 
+      - name: Set up .npmrc
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       # 3. `package` 디렉토리로 이동하여 의존성 설치 및 테스트 실행
       - name: Install dependencies and run tests
         working-directory: ./package
