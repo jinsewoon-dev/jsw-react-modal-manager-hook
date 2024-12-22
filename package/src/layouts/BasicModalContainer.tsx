@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
-import { useModal } from "../context/ModalProvider";
 import styles from "./BasicModalContainer.module.css";
 import { BaseModalConfig } from "../types";
+import { useModal, useModalManager } from "../hooks/useModal";
 
 interface BasicModalContainerProps {
   initialConfig: BaseModalConfig & {
@@ -13,7 +13,8 @@ interface BasicModalContainerProps {
 export const BasicModalContainer = ({
   initialConfig,
 }: BasicModalContainerProps) => {
-  const { modals, closeModal } = useModal();
+  const modals = useModalManager();
+  const { closeModal } = useModal();
 
   return (
     <>

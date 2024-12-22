@@ -1,17 +1,3 @@
-import React, { createContext, CSSProperties } from "react";
-
-import { useContext } from "react";
-import { useModalManager } from "../hooks/useModalManager";
-import { BasicModalContainer } from "../layouts/BasicModalContainer";
-import { ModalManagerInterface, ModalStateConfing } from "../types";
-
-// Context 생성
-const ModalContext = createContext<any>(null);
-export type ModalProviderProps = {
-  children: React.ReactNode;
-  customModalContainer?: React.ReactNode;
-  initialConfig?: ModalStateConfing;
-};
 export const INITIAL_MODAL_CONFIG = {
   baseZindex: 10000,
   useDim: true,
@@ -21,47 +7,55 @@ export const INITIAL_MODAL_CONFIG = {
   cleanupDelay: 300,
 };
 
-export const ModalProvider = ({
-  children,
-  customModalContainer,
-  initialConfig = INITIAL_MODAL_CONFIG,
-}: ModalProviderProps) => {
-  const { modals, openModal, closeModal, closeAllModals } = useModalManager(
-    initialConfig.cleanupDelay ?? INITIAL_MODAL_CONFIG.cleanupDelay
-  );
+import React from "react";
+import { useModalManager } from "../hooks/useModal";
+import styles from "./BasicModalContainer.module.css";
+import { modalStore } from "../stores/modalStore";
 
-  return (
-    <ModalContext.Provider
-      value={{ modals, openModal, closeModal, closeAllModals }}
-    >
-      {customModalContainer ?? (
-        <BasicModalContainer
-          initialConfig={{
-            useDim: initialConfig.useDim ?? INITIAL_MODAL_CONFIG.useDim,
-            allowDimClickClose:
-              initialConfig.allowDimClickClose ??
-              INITIAL_MODAL_CONFIG.allowDimClickClose,
-            allowBackgroundScroll:
-              initialConfig.allowBackgroundScroll ??
-              INITIAL_MODAL_CONFIG.allowBackgroundScroll,
-            dimBackgroundColor:
-              initialConfig.dimBackgroundColor ??
-              INITIAL_MODAL_CONFIG.dimBackgroundColor,
-            baseZindex:
-              initialConfig.baseZindex ?? INITIAL_MODAL_CONFIG.baseZindex,
-          }}
-        />
-      )}
-      {children}
-    </ModalContext.Provider>
-  );
+type ModalProviderProps = {
+  children: React.ReactNode;
+  cleanupDelay?: number;
 };
 
-// Context를 쉽게 사용할 수 있는 커스텀 훅
-export const useModal = () => {
-  const context = useContext(ModalContext) as ModalManagerInterface;
-  if (!context) {
-    throw new Error("useModal must be used within a ModalProvider");
-  }
-  return context;
+export const ModalProvider = ({
+  children,
+  cleanupDelay = 300,
+}: ModalProviderProps) => {
+  const modals = useModalManager();
+
+  // cleanupDelay 설정
+  React.useEffect(() => {
+    modalStore.setCleanupDelay(cleanupDelay);
+  }, [cleanupDelay]);
+
+  return (
+    <>
+      {children}
+      {modals.map((modal, index) => (
+        <div
+          key={modal.id}
+          className={`${modal.isVisible ? styles.fadeIn : styles.fadeOut}`}
+          style={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: modal.config.useDim
+              ? "rgba(0,0,0,0.5)"
+              : "transparent",
+            zIndex: 10000 + index,
+            pointerEvents: modal.isVisible ? "auto" : "none",
+          }}
+          onClick={() =>
+            modal.config.allowDimClickClose
+              ? modalStore.closeModal(modal.id)
+              : undefined
+          }
+        >
+          <div onClick={(e) => e.stopPropagation()}>{modal.component}</div>
+        </div>
+      ))}
+    </>
+  );
 };

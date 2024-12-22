@@ -1,9 +1,10 @@
 import { useModal } from "@jinsewoon/react-modal-manager-hook";
 import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
+import { useEffect } from "react";
 
 const NestMdoal = () => {
-  const { openModal, closeModal } = useModal();
+  const { openModal, closeModal, closeAllModals } = useModal();
   return (
     <div className="p-4 bg-white">
       <div>CustomDialog</div>
@@ -19,7 +20,7 @@ const NestMdoal = () => {
       >
         My Modal
       </Button>
-      <Button onClick={() => closeModal()}>Close All Modal</Button>
+      <Button onClick={() => closeAllModals()}>Close All Modal</Button>
     </div>
   );
 };
@@ -58,7 +59,9 @@ const BasicPage = () => {
   };
   return (
     <PageLayout>
-      <Button onClick={handleOpenModal}>오픈</Button>
+      <div className=" h-[200dvh]">
+        <Button onClick={handleOpenModal}>오픈</Button>
+      </div>
     </PageLayout>
   );
 };
@@ -69,6 +72,15 @@ interface MyModalProps {
 }
 
 const MyModal = ({ onClose }: MyModalProps) => {
+  useEffect(() => {
+    let render = true;
+    console.log("mount", { render });
+    return () => {
+      render = false;
+      console.log("unmount", { render });
+      if (!render) console.log("언마운트 온클로즈");
+    };
+  }, []);
   return (
     <div className="p-4 bg-white">
       <h2>모달 콘텐츠</h2>

@@ -14,9 +14,7 @@ export type BaseModalConfig = {
 
 export type ModalStateConfing = ModalProviderConfig & Partial<BaseModalConfig>;
 
-export type OpenModalOptions = {
-  onClose?: () => void; // 모달 닫힘 시 실행할 콜백
-} & Partial<BaseModalConfig>;
+export type OpenModalOptions = Partial<BaseModalConfig>;
 
 export type ModalState = {
   id: string; // 모달 고유 ID

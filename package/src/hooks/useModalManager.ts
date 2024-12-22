@@ -26,12 +26,10 @@ export const useModalManager = (
   const openModal = useCallback(
     (component: React.ReactNode, options?: OpenModalOptions) => {
       const id = generateUniqueId();
-      const onClose = options?.onClose; // 닫힘 시 실행할 콜백
 
       // 모달 컴포넌트에 onClose를 props로 전달
       const clonedComponent = React.cloneElement(
-        component as React.ReactElement,
-        { onClose }
+        component as React.ReactElement
       );
 
       // 모달 상태 업데이트
@@ -50,7 +48,6 @@ export const useModalManager = (
               options?.allowBackgroundScroll ??
               INITIAL_MODAL_CONFIG.allowBackgroundScroll,
           },
-          onClose,
         },
       ]);
     },
