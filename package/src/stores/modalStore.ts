@@ -1,78 +1,78 @@
 import { generateUniqueId } from "../lib/generateUniqueId";
-import { OpenModalOptions, ModalState } from "../types";
+import { ModalState, OpenModalConfig } from "../types";
 
-type ModalStoreState = ModalState[];
+class ModalStore {
+  #modals: Map<string, ModalState> = new Map();
+  #subscribers: Set<() => void> = new Set();
+  #cachedModalIds: string[] | null = null;
 
-let currentState: ModalStoreState = [];
-const listeners = new Set<() => void>();
+  // Modal IDs 캐싱
+  get modalIds(): string[] {
+    if (!this.#cachedModalIds) {
+      this.#cachedModalIds = Array.from(this.#modals.keys());
+    }
+    return this.#cachedModalIds;
+  }
 
-let cleanupDelay = 300; // 기본 cleanupDelay 설정
+  // 전체 변경 알림
+  #notify() {
+    this.#cachedModalIds = null;
+    this.#subscribers.forEach((callback) => callback());
+  }
 
-// 상태 변경을 통지
-const notify = () => listeners.forEach((listener) => listener());
+  subscribe(callback: () => void) {
+    this.#subscribers.add(callback);
+    return () => this.#subscribers.delete(callback);
+  }
 
-// 모달 스토어
-export const modalStore = {
-  // 상태 구독
-  subscribe: (listener: () => void) => {
-    listeners.add(listener);
-    return () => listeners.delete(listener);
-  },
+  // Modal IDs 구독
+  getSnapshot() {
+    return this.modalIds;
+  }
 
-  // 상태 가져오기
-  getSnapshot: () => currentState,
+  // 특정 모달 구독
+  getModal(id: string): ModalState | undefined {
+    return this.#modals.get(id);
+  }
 
-  // cleanupDelay 설정
-  setCleanupDelay: (delay: number) => {
-    cleanupDelay = delay;
-  },
-
-  // 모달 열기
-  openModal: (component: React.ReactNode, options?: OpenModalOptions) => {
-    const id = generateUniqueId();
-    currentState = [
-      ...currentState,
-      {
-        id,
-        component,
-        isVisible: true,
-        config: {
-          useDim: options?.useDim ?? true,
-          allowDimClickClose: options?.allowDimClickClose ?? true,
-          allowBackgroundScroll: options?.allowBackgroundScroll ?? false,
-        },
-      },
-    ];
-    notify();
-  },
-
-  // 특정 또는 마지막 모달 닫기
-  closeModal: (id?: string) => {
-    const targetId = id || currentState[currentState.length - 1]?.id;
+  openModal(component: React.ReactNode, config: OpenModalConfig = {}) {
+    const id = config.id || generateUniqueId();
+    this.#modals.set(id, { id, component, isVisible: true });
+    this.#notify();
+  }
+  // **마지막 모달 닫기** 또는 특정 모달 닫기
+  closeModal(id?: string) {
+    const targetId = id || Array.from(this.#modals.keys()).at(-1); // 마지막 ID 가져오기
     if (!targetId) return;
 
-    currentState = currentState.map((modal) =>
-      modal.id === targetId ? { ...modal, isVisible: false } : modal
-    );
-    notify();
+    const modal = this.#modals.get(targetId);
+    if (modal) {
+      modal.isVisible = false; // 상태 변경
+      this.#notify();
+    }
+  }
+  // **마지막 모달 제거** 또는 특정 모달 제거
+  removeModal(id?: string) {
+    const targetId = id || Array.from(this.#modals.keys()).at(-1); // 마지막 ID 가져오기
+    if (!targetId) return;
 
-    setTimeout(() => {
-      currentState = currentState.filter((modal) => modal.id !== targetId);
-      notify();
-    }, cleanupDelay);
-  },
+    this.#modals.delete(targetId); // 모달 제거
+    this.#notify();
+  }
 
   // 모든 모달 닫기
-  closeAllModals: () => {
-    currentState = currentState.map((modal) => ({
-      ...modal,
-      isVisible: false,
-    }));
-    notify();
+  closeAllModals() {
+    this.#modals.forEach((modal) => {
+      modal.isVisible = false; // 모달 상태를 '닫힘'으로 변경
+    });
+    this.#notify(); // 구독자들에게 변경 알림
+  }
 
-    setTimeout(() => {
-      currentState = [];
-      notify();
-    }, cleanupDelay);
-  },
-};
+  // 모든 모달 제거
+  removeAllModals() {
+    this.#modals.clear(); // 모든 모달 제거
+    this.#notify(); // 구독자들에게 변경 알림
+  }
+}
+
+export const modalStore = new ModalStore();

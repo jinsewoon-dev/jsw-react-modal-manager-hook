@@ -1,2 +1,4 @@
-export { BasicModalContainer } from "./layouts/BasicModalContainer";
-export { ModalProvider, useModal } from "./context/ModalProvider";
+export { useModal } from "./hooks/useModal";
+
+// export { BasicModalContainer } from "./layouts/BasicModalContainer";
+export { ModalProvider } from "./context/ModalProvider";

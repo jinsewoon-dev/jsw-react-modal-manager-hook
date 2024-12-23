@@ -1,16 +1,17 @@
-import React from "react";
 import { modalStore } from "../stores/modalStore";
 
-export const useModal = () => ({
-  openModal: modalStore.openModal,
-  closeModal: modalStore.closeModal,
-  closeAllModals: modalStore.closeAllModals,
-});
+type OpenModalConfig = {
+  id?: string; // 선택적으로 ID를 명시
+};
 
-export const useModalManager = () => {
-  return React.useSyncExternalStore(
-    modalStore.subscribe,
-    modalStore.getSnapshot,
-    modalStore.getSnapshot
-  );
+export const useModal = () => {
+  return {
+    openModal: (component: React.ReactNode, config?: OpenModalConfig) =>
+      modalStore.openModal(component, config),
+    closeModal: modalStore.closeModal.bind(modalStore),
+    removeModal: modalStore.removeModal.bind(modalStore),
+    closeAllModals: modalStore.closeAllModals.bind(modalStore),
+    removeAllModals: modalStore.removeAllModals.bind(modalStore),
+    getModalById: modalStore.getModal.bind(modalStore),
+  };
 };

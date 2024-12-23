@@ -21,7 +21,7 @@
   "scripts": {
     "build:css": "postcss src/**/*.css --dir dist --no-map",
     "build:ts": "tsup",
-    "build": "npm run build:css && npm run build:ts",
+    "build": "npm run build:ts",
     "dev": "tsup --watch",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"

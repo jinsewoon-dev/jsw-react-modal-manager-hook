@@ -1,44 +1,37 @@
 import { useModal } from "@jinsewoon/react-modal-manager-hook";
 import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
-import { useEffect } from "react";
 
 const NestMdoal = () => {
-  const { openModal, closeModal, closeAllModals } = useModal();
+  const { openModal, closeAllModals, removeAllModals } = useModal();
+  console.log("[modal render] : NestMdoal");
   return (
-    <div className="p-4 bg-white">
+    <div className="p-4 bg-white fixed inset-0 bg-[rgba(0,0,0,0.5)] z-[10000]">
       <div>CustomDialog</div>
+      <Button onClick={() => openModal(<MyModal />, {})}>My Modal</Button>
       <Button
-        onClick={() =>
-          openModal(<MyModal />, {
-            onClose: () => {
-              closeModal();
-              console.log("모달이 닫혔습니다.3");
-            },
-          })
-        }
+        onClick={() => {
+          closeAllModals();
+          removeAllModals();
+        }}
       >
-        My Modal
+        Close All Modal
       </Button>
-      <Button onClick={() => closeAllModals()}>Close All Modal</Button>
     </div>
   );
 };
 
 const BasicPage = () => {
-  const { modals, openModal, closeModal } = useModal();
-  console.log(modals);
+  const { openModal, closeModal, removeModal } = useModal();
+  console.log("[modal render] : BasicPage");
   const handleOpenModal = () => {
     openModal(
-      <div className="p-4 bg-white">
+      <div className="p-4 bg-white fixed inset-0 bg-[rgba(0,0,0,0.5)] z-[10000]">
         <div>모달입니다</div>
         <div className="flex gap-1">
           <Button
             onClick={() => {
-              console.log("????");
-              openModal(<NestMdoal />, {
-                onClose: () => console.log("모달이 닫혔습니다.2"),
-              });
+              openModal(<NestMdoal />);
             }}
           >
             Open Modal
@@ -46,15 +39,13 @@ const BasicPage = () => {
           <Button
             onClick={() => {
               closeModal();
+              removeModal();
             }}
           >
             Close Modal
           </Button>
         </div>
-      </div>,
-      {
-        onClose: () => console.log("모달이 닫혔습니다.1"),
-      }
+      </div>
     );
   };
   return (
@@ -67,24 +58,14 @@ const BasicPage = () => {
 };
 
 export default BasicPage;
-interface MyModalProps {
-  onClose?: () => void;
-}
 
-const MyModal = ({ onClose }: MyModalProps) => {
-  useEffect(() => {
-    let render = true;
-    console.log("mount", { render });
-    return () => {
-      render = false;
-      console.log("unmount", { render });
-      if (!render) console.log("언마운트 온클로즈");
-    };
-  }, []);
+const MyModal = () => {
+  const { closeModal } = useModal();
+  console.log("[modal render] : MyModal");
   return (
     <div className="p-4 bg-white">
       <h2>모달 콘텐츠</h2>
-      <button onClick={onClose}>닫기</button>
+      <button onClick={() => closeModal()}>닫기</button>
     </div>
   );
 };
