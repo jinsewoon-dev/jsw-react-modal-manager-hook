@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
         path: ROUTER_PATHS.BASIC,
         element: <BasicPage />,
       },
+      {
+        path: ROUTER_PATHS.NEST,
+        element: <BasicPage />,
+      },
     ],
   },
 ]);

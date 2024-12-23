@@ -1,11 +1,11 @@
-import AppSideBar from "@components/appSideBar/AppSideBar";
 import { SidebarProvider, SidebarTrigger } from "@shadcn/components/ui/sidebar";
+import AppSidebar from "@templates/appSideBar/AppSidebar";
 import { PropsWithChildren } from "react";
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider>
-      <AppSideBar />{" "}
+      <AppSidebar />{" "}
       <main>
         <SidebarTrigger />
         {children}

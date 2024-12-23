@@ -15,13 +15,12 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./BasicModalContainer.module.css": "./dist/BasicModalContainer.module.module.css"
+    }
   },
   "scripts": {
-    "build:css": "postcss src/**/*.css --dir dist --no-map",
+    "build:css": "postcss src/**/*.css --dir dist",
     "build:ts": "tsup",
-    "build": "npm run build:ts",
+    "build": "npm run build:css && npm run build:ts",
     "dev": "tsup --watch",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
