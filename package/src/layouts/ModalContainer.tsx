@@ -1,14 +1,12 @@
 import { useModalIds } from "../hooks/useModalIds";
 import { useModalById } from "../hooks/useModalById";
 
-const ModalContainer = () => {
+export const ModalContainer = () => {
   const modals = useModalIds();
   return modals.map((id) => {
-    return <Modal key={id} id={id}></Modal>;
+    return <Modal key={id} id={id} />;
   });
 };
-
-export default ModalContainer;
 
 const Modal = ({ id }: { id: string }) => {
   const modal = useModalById(id);

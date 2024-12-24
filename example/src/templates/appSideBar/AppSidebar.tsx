@@ -42,6 +42,10 @@ const items: MenuItemType[] = [
         title: "Nest",
         url: ROUTER_PATHS.NEST,
       },
+      {
+        title: "Motion",
+        url: ROUTER_PATHS.FRAMER_MOTION,
+      },
     ],
   },
 ];

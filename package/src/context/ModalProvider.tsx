@@ -1,15 +1,19 @@
 import React from "react";
-import ModalContainer from "../layouts/ModalContainer";
+import { ModalContainer } from "../layouts/ModalContainer";
 
 type ModalProviderProps = {
   children: React.ReactNode;
+  customContainer?: React.ReactNode;
 };
 
-export const ModalProvider = ({ children }: ModalProviderProps) => {
+export const ModalProvider = ({
+  children,
+  customContainer,
+}: ModalProviderProps) => {
   return (
     <>
       {children}
-      <ModalContainer />
+      {customContainer ?? <ModalContainer />}
     </>
   );
 };

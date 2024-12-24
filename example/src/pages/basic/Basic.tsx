@@ -10,9 +10,7 @@ const BasicPage = () => {
   };
   return (
     <PageLayout>
-      <div className=" h-[200dvh]">
-        <Button onClick={handleOpenModal}>오픈</Button>
-      </div>
+      <Button onClick={handleOpenModal}>오픈</Button>
     </PageLayout>
   );
 };

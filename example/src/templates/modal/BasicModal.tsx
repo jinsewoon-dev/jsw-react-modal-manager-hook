@@ -12,7 +12,7 @@ const BasicModal = () => {
           <Button
             onClick={() => {
               closeModal();
-              removeModal();
+              // removeModal();
             }}
           >
             Close Modal
