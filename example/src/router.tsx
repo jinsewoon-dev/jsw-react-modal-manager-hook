@@ -4,6 +4,7 @@ import BasicPage from "@pages/basic/Basic";
 import IntroPage from "@pages/intro/Intro";
 
 import { ROUTER_PATHS } from "@constants/ROUTER_PATHS";
+import NestPage from "@pages/nest/Nest";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTER_PATHS.NEST,
-        element: <BasicPage />,
+        element: <NestPage />,
       },
     ],
   },

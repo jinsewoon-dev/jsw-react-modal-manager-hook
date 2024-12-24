@@ -5,7 +5,6 @@ import BasicModal from "@templates/modal/BasicModal";
 
 const BasicPage = () => {
   const { openModal } = useModal();
-  console.log("[modal render] : BasicPage");
   const handleOpenModal = () => {
     openModal(<BasicModal />);
   };

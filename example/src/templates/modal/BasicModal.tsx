@@ -6,10 +6,9 @@ const BasicModal = () => {
   const { closeModal, removeModal } = useModal();
   return (
     <ModalLayout>
-      <div className="p-4  bg-white">
-        <div>{}</div>
+      <div className="p-4 bg-white">
         <div>BasicModal</div>
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           <Button
             onClick={() => {
               closeModal();

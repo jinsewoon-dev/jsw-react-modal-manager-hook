@@ -36,11 +36,11 @@ const items: MenuItemType[] = [
     children: [
       {
         title: "Basic",
-        url: "basic",
+        url: ROUTER_PATHS.BASIC,
       },
       {
         title: "Nest",
-        url: "basic",
+        url: ROUTER_PATHS.NEST,
       },
     ],
   },
