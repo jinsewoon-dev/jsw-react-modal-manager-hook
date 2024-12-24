@@ -21,9 +21,7 @@ const Modal = ({ id }: { id: string }) => {
       onAnimationEnd={() => !modal?.isVisible && removeModal(id)}
       className={`flex justify-center items-center
    fixed inset-0 bg-[rgba(0,0,0,0.5)] z-[10000] ${
-     modal?.isVisible
-       ? "fadeIn pointer-events-auto"
-       : "fadeOut pointer-events-none"
+     modal?.isVisible ? " pointer-events-auto" : " pointer-events-none"
    }`}
     >
       {modal?.component}
