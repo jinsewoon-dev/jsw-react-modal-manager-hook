@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { generateUniqueId } from "../../lib/generateUniqueId";
 
 type ModalStateConfig = {
   useDim?: boolean;
