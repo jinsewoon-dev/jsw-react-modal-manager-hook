@@ -1,3 +1,5 @@
+export { Modal } from "./components/modal";
+
 export { useModalById } from "./hooks/useModalById";
 export { useModalIds } from "./hooks/useModalIds";
 

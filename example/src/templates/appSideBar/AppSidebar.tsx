@@ -32,7 +32,7 @@ const items: MenuItemType[] = [
   {
     title: "Tutorials",
     url: ROUTER_PATHS.BASIC,
-    icon: "Inbox",
+    icon: "Plus",
     children: [
       {
         title: "Basic",

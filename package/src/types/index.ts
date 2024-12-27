@@ -13,9 +13,19 @@ export type OpenModalConfig = {
   id?: string; // 선택적으로 ID를 명시
 };
 export type ModalState = {
-  id: string; // 모달 고유 ID
-  component: React.ReactNode; // 렌더링할 컴포넌트
-  isVisible: boolean; // 현재 보이는 상태
+  id: string;
+  index: number;
+  component: React.ReactNode;
+  isVisible: boolean;
+};
+
+export type UseModalType = {
+  openModal: (component: React.ReactNode, config?: OpenModalConfig) => void;
+  closeModal: (id?: string) => void;
+  closeAllModals: () => void;
+  getModalById: (id: string) => ModalState | undefined;
+  getModals: () => Map<string, ModalState>;
+  cleanupModals: () => void;
 };
 
 export type ModalManagerState = ModalState[];

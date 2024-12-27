@@ -1,28 +1,32 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
+import { useModal } from "../../hooks/useModal";
+import { ModalState, UseModalType } from "../../types";
 
-type ModalStateConfig = {
-  useDim?: boolean;
-  allowDimClickClose?: boolean;
-  allowBackgroundScroll?: boolean;
+type ModalProviderValue = {
+  modal: ModalState;
+  store: UseModalType;
 };
 
-type ModalState = {
-  //   component: React.ReactNode; // 렌더링할 컴포넌트
-  config?: ModalStateConfig;
-};
+const ModalContext = createContext<ModalProviderValue | null>(null);
 
-const ModalContext = createContext<ModalStateConfig | null>(null);
+type RootType = {} & React.HTMLAttributes<HTMLDivElement>;
+const Root = ({ ...props }: RootType) => {
+  const store = useModal();
+  const modals = store.getModals();
+  const targetModal = Array.from(modals).at(-1);
+  const modal = targetModal![1];
 
-const Root = ({
-  children,
-  config,
-}: {
-  children: React.ReactNode;
-  config: ModalStateConfig;
-}) => {
-  return (
-    <ModalContext.Provider value={config}>{children}</ModalContext.Provider>
-  );
+  if (modal) {
+    const value: ModalProviderValue = {
+      modal,
+      store,
+    };
+    return (
+      <ModalContext.Provider value={value}>
+        <div {...props} />
+      </ModalContext.Provider>
+    );
+  }
 };
 
 //variant를 가져와서 쓰기위한 훅
@@ -38,18 +42,70 @@ const useValue = () => {
   return value;
 };
 
-const Overlay = () => {
-  const config = useValue();
-
-  return <div></div>;
+type OverlayType = {
+  onClick?: VoidFunction;
+  allowOverlayClickClose?: boolean;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, "onClick">;
+const Overlay = ({
+  onClick,
+  allowOverlayClickClose,
+  ...props
+}: OverlayType) => {
+  const value = useValue();
+  return (
+    <div
+      onClick={() => {
+        if (allowOverlayClickClose) {
+          value.store.closeModal();
+          value.store.cleanupModals();
+        }
+        onClick && onClick();
+      }}
+      {...props}
+    />
+  );
 };
-const Content = () => {
-  const config = useValue();
-  return <div></div>;
+
+type ContentType = {
+  onClick?: VoidFunction;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, "onClick">;
+const Content = ({ onClick, ...props }: ContentType) => {
+  return (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick && onClick();
+      }}
+      {...props}
+    />
+  );
+};
+
+// Modal Cancel 버튼 컴포넌트
+type CustomButtonProps = {
+  onClick?: VoidFunction;
+} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick">;
+
+const Cancel: React.FC<CustomButtonProps> = ({ onClick, ...props }) => {
+  const value = useValue();
+  return (
+    <button
+      onClick={() => {
+        if (onClick) {
+          onClick();
+        } else {
+          value.store.closeModal();
+          value.store.cleanupModals();
+        }
+      }}
+      {...props}
+    />
+  );
 };
 
 export const Modal = {
   Root,
   Overlay,
   Content,
+  Cancel,
 };

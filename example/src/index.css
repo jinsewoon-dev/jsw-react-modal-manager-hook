@@ -43,7 +43,7 @@
 }
 
 .fadeIn {
-  animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 2.3s ease forwards;
 }
 .fadeOut {
   animation: fadeOut 2.3s ease forwards;

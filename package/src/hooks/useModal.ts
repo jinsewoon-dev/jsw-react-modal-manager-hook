@@ -9,9 +9,11 @@ export const useModal = () => {
     openModal: (component: React.ReactNode, config?: OpenModalConfig) =>
       modalStore.openModal(component, config),
     closeModal: modalStore.closeModal.bind(modalStore),
-    removeModal: modalStore.removeModal.bind(modalStore),
+    // removeModal: modalStore.removeModal.bind(modalStore),
     closeAllModals: modalStore.closeAllModals.bind(modalStore),
-    removeAllModals: modalStore.removeAllModals.bind(modalStore),
+    // removeAllModals: modalStore.removeAllModals.bind(modalStore),
     getModalById: modalStore.getModal.bind(modalStore),
+    getModals: modalStore.getModals.bind(modalStore),
+    cleanupModals: modalStore.cleanupModals.bind(modalStore),
   };
 };

@@ -30,7 +30,7 @@ const SidebarCollapsibleMenu = ({
       <SidebarMenuItem>
         <SidebarMenuButton className="flex justify-between">
           <span className="inline-flex items-center gap-2 text-[14px]">
-            {<Icon name={categoryData.icon} size={16} />} {categoryData.title}
+            {<Icon name={categoryData.icon} />} {categoryData.title}
           </span>
           {/* 메뉴 화살표 아이콘 */}
           {/* <Icon
