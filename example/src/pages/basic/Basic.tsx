@@ -1,30 +1,26 @@
-import { Modal, useModal } from "@jinsewoon/react-modal-manager-hook";
+import { useModal } from "@jinsewoon/react-modal-manager-hook";
 import PageLayout from "@layouts/pageLayout/PageLayout";
 import { Button } from "@shadcn/components/ui/button";
 const BasicPage = () => {
-  const { openModal } = useModal();
-
+  const { modals, openModal, closeModal } = useModal();
+  console.log(modals);
   const handleOpenModal = () => {
     openModal(
-      <Modal.Root className="fixed inset-0 overscroll-none z-[10000]">
-        <Modal.Overlay
-          allowOverlayClickClose
-          className="absolute inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] overflow-auto overscroll-none z-1"
-        >
-          <Modal.Content className="w-[200px] mx-auto p-8 bg-slate-300">
-            <div className="flex gap-2">
-              <button
-                onClick={() => {
-                  openModal(<NestedModal />);
-                }}
-              >
-                오픈 모달
-              </button>
-              <Modal.Cancel>취소</Modal.Cancel>
-            </div>
-          </Modal.Content>
-        </Modal.Overlay>
-      </Modal.Root>
+      <div className="p-4 bg-white">
+        adasd
+        <div>
+          <Button
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            Close Modal
+          </Button>
+        </div>
+      </div>,
+      {
+        allowOverlayClickClose: true,
+      }
     );
   };
   return (
@@ -37,23 +33,3 @@ const BasicPage = () => {
 };
 
 export default BasicPage;
-
-const NestedModal = () => {
-  const { closeAllModals, cleanupModals } = useModal();
-  return (
-    <Modal.Root className="fixed inset-0 overscroll-none z-[10000]">
-      <Modal.Overlay className="absolute inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] overflow-auto overscroll-none z-1">
-        <Modal.Content className="w-[200px] mx-auto p-4 bg-slate-300">
-          <Modal.Cancel
-            onClick={() => {
-              closeAllModals();
-              cleanupModals();
-            }}
-          >
-            전체 취소
-          </Modal.Cancel>
-        </Modal.Content>
-      </Modal.Overlay>
-    </Modal.Root>
-  );
-};

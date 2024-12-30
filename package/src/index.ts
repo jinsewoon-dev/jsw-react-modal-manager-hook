@@ -1,8 +1,2 @@
-export { Modal } from "./components/modal";
-
-export { useModalById } from "./hooks/useModalById";
-export { useModalIds } from "./hooks/useModalIds";
-
-export { ModalContainer } from "./layouts/ModalContainer";
-export { useModal } from "./hooks/useModal";
 export { ModalProvider } from "./context/ModalProvider";
+export { useModal } from "./hooks/useModal";

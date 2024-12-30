@@ -1,31 +1,16 @@
-import { CSSProperties } from "react";
+import { ReactNode } from "react";
 
-// export type BaseModalConfig = {
-//   useDim: boolean;
-//   allowDimClickClose: boolean;
-//   allowBackgroundScroll: boolean;
-// };
-
-// export type ModalStateConfing = ModalProviderConfig & Partial<BaseModalConfig>;
-
-// export type OpenModalOptions = Partial<BaseModalConfig>;
-export type OpenModalConfig = {
-  id?: string; // 선택적으로 ID를 명시
-};
-export type ModalState = {
-  id: string;
-  index: number;
-  component: React.ReactNode;
-  isVisible: boolean;
+export type ModalOptions = {
+  useDim?: string; // 오버레이 색상, 기본값: 'rgba(0, 0, 0, 0.5)'
+  allowOverlayClickClose?: boolean; // 오버레이 클릭 시 닫힘 여부
+  allowBackgroundScroll?: boolean; // 백그라운드 스크롤 허용 여부
+  onClose?: () => void; // 모달 닫힐 때 호출
+  onExit?: () => void; // 모달 완전히 제거 시 호출
 };
 
-export type UseModalType = {
-  openModal: (component: React.ReactNode, config?: OpenModalConfig) => void;
-  closeModal: (id?: string) => void;
-  closeAllModals: () => void;
-  getModalById: (id: string) => ModalState | undefined;
-  getModals: () => Map<string, ModalState>;
-  cleanupModals: () => void;
+export type ModalItem = {
+  id: string; // 고유 ID
+  content: ReactNode; // 렌더할 컴포넌트
+  isOpen: boolean; // 모달 열림 상태
+  options: ModalOptions; // 옵션
 };
-
-export type ModalManagerState = ModalState[];

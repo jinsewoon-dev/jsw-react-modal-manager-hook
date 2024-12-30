@@ -1,14 +1,35 @@
-import { useModalIds } from "../hooks/useModalIds";
-import { useModalById } from "../hooks/useModalById";
-
-export const ModalContainer = () => {
-  const modals = useModalIds();
-  return modals.map((id) => {
-    return <Modal key={id} id={id} />;
-  });
+import { ModalItem } from "../types";
+import { useModal } from "../hooks/useModal";
+import style from "./ModalContainer.module.css";
+import { useEffect } from "react";
+const ModalContainer = ({ modal }: { modal: ModalItem }) => {
+  const { closeModal, exitModal } = useModal();
+  useEffect(() => {});
+  return (
+    <div
+      key={modal.id}
+      className={`${style.modalContent} ${
+        modal.isOpen ? style.fadeIn : style.fadeOut
+      }`}
+      style={{
+        backgroundColor: modal.options.useDim || "rgba(0, 0, 0, 0.5)",
+        pointerEvents: modal.isOpen ? "auto" : "none",
+      }}
+      onClick={() => {
+        if (modal.options.allowOverlayClickClose) {
+          closeModal();
+        }
+      }}
+      onAnimationEnd={() => {
+        console.log("end");
+        if (!modal.isOpen) {
+          exitModal();
+        }
+      }}
+    >
+      <div onClick={(e) => e.stopPropagation()}>{modal.content}</div>
+    </div>
+  );
 };
 
-const Modal = ({ id }: { id: string }) => {
-  const modal = useModalById(id);
-  return modal?.component;
-};
+export default ModalContainer;

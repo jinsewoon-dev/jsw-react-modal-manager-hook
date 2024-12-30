@@ -1,19 +1,21 @@
 import React from "react";
-import { ModalContainer } from "../layouts/ModalContainer";
+import { useModal } from "../hooks/useModal";
+import ModalContainer from "../layouts/ModalContainer";
 
-type ModalProviderProps = {
+interface ModalProviderProps {
   children: React.ReactNode;
-  customContainer?: React.ReactNode;
-};
-
+  customModalContainer?: React.ReactNode;
+}
 export const ModalProvider = ({
   children,
-  customContainer,
+  customModalContainer,
 }: ModalProviderProps) => {
+  const { modals } = useModal();
   return (
-    <>
+    <div>
       {children}
-      {customContainer ?? <ModalContainer />}
-    </>
+      {customModalContainer ??
+        modals.map((modal) => <ModalContainer key={modal.id} modal={modal} />)}
+    </div>
   );
 };
